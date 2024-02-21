@@ -1,5 +1,5 @@
 # Copyright 2024 Holger Kluck
-# This file main.cc is part of G4minWE.
+# This file CMakeLists.txt is part of G4minWE.
 #
 # G4minWE is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
