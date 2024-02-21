@@ -1,0 +1,69 @@
+#-------------------------------------------------------------------------------
+# Setup the project
+#
+
+# Set minimum required cmake version 
+cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
+
+# Set name and version of the project, and which programming language is used
+project(GME VERSION 1.0.0 LANGUAGES CXX)
+
+# Use GNU-style hierarchy for installing build products
+include(GNUInstallDirs)
+
+# Define the C++ Standard to use: require C++14 and allow no non-standard extension
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# If GCC is used add compiler options to get more strict checks
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+	# ... for all configurations
+  	add_compile_options(-Wall -Wextra -Wpedantic)
+  	# ... only for debug: get more debug information
+  	add_compile_options($<$<CONFIG:Debug>:-g3>)
+endif()
+
+
+#-------------------------------------------------------------------------------
+# Find Geant4 packages
+#
+
+# Because we want full GUI, need Geant4 with Qt, UI, and visualisation
+find_package(Geant4 10.6.3 EXACT REQUIRED ui_all vis_all qt)
+include(${Geant4_USE_FILE})
+
+
+#-------------------------------------------------------------------------------
+# Locate sources and headers for this project
+#
+
+# For headers
+include_directories(${CMAKE_SOURCE_DIR}/include)
+# For source files
+file(GLOB_RECURSE sources ${CMAKE_SOURCE_DIR}/src/ *.cc)
+
+
+#------------------------------------------------------------------------------
+# Install 
+#
+
+# Executable depends on the main files and all other source and header files
+add_executable(${PROJECT_NAME} main.cc ${sources})# ${headers})
+# ... and it depends also on the Geant4 libraries
+target_link_libraries(${PROJECT_NAME} ${Geant4_LIBRARIES})
+
+# Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+
+# Install the headers to the 'include' directory under CMAKE_INSTALL_PREFIX
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/include/" DESTINATION include)
+
+# Install the macros files to the 'mac' directory under CMAKE_INSTALL_PREFIX
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/mac/ DESTINATION mac)
+    
+# Install documentation like files to the default GNU doc directory
+install(FILES ${CMAKE_SOURCE_DIR}/LICENSE.md
+              DESTINATION ${CMAKE_INSTALL_DOCDIR})
+install(FILES ${CMAKE_SOURCE_DIR}/README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+install(FILES ${CMAKE_SOURCE_DIR}/CHANGELOG.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
