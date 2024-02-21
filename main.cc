@@ -1,19 +1,19 @@
 /*
  * Copyright 2024 Holger Kluck
- * This file main.cc is part of GeigerMarsdenExperiment.
+ * This file main.cc is part of G4minWE.
  *
- * GeigerMarsdenExperiment is free software: you can redistribute it and/or modify
+ * G4minWE is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * GeigerMarsdenExperiment is distributed in the hope that it will be useful,
+ * G4minWE is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with GeigerMarsdenExperiment.  If not, see <http://www.gnu.org/licenses/>.
+ * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "detectorConstruction.hh"
@@ -27,7 +27,8 @@
 int main(int argc, char **argv) {
 	/*-Info printout-----------------------------------------------------------*/
 	G4cout
-	<< " --- GeigerMarsdenExperiment ---\n"
+	<< "            --- G4minWE ---\n"
+	<< " A minimum working example for Geant4\n"
 	<< "\n"
 	<< " Usage:\n"
 	<< "  for interactive mode: gme\n"
@@ -36,10 +37,10 @@ int main(int argc, char **argv) {
 	<< "\n"
 	<< " Contact: Holger Kluck (holger.kluck@oeaw.ac.at)\n"
 	<< "\n"
-	<< "GeigerMarsdenExperiment Copyright (C) 2024 Holger Kluck\n"
-	<< "This program comes with ABSOLUTELY NO WARRANTY; this is free software,\n"
-	<< "and you are welcome to redistribute it under certain conditions;\n"
-	<< "see LICENSE.md for details." << G4endl;
+	<< " GeigerMarsdenExperiment Copyright (C) 2024 Holger Kluck\n"
+	<< "  This program comes with ABSOLUTELY NO WARRANTY; this is free software,\n"
+	<< "  and you are welcome to redistribute it under certain conditions;\n"
+	<< "   see LICENSE.md for details." << G4endl;
 
 	/*-Setup user interface----------------------------------------------------*/
 	G4UIExecutive *ui = nullptr;
