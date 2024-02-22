@@ -16,11 +16,12 @@
  * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "eventAction.hh
+#include "eventAction.hh"
+#include "G4Event.hh"
 
-void eventAction::BeginOfEventAction() {
+void eventAction::BeginOfEventAction(const G4Event* anEvent) {
 }
 
-void eventAction::EndOfEventaction() {
+void eventAction::EndOfEventAction(const G4Event* anEvent) {
 }
 
