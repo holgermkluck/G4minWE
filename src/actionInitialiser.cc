@@ -17,6 +17,9 @@
  */
 
 #include "actionInitialiser.hh"
+#include "primaryParticleAction.hh"
 
 void actionInitialiser::Build() const {
+	//Set primary particle generator
+	SetUserAction(new primaryParticleAction);
 }
