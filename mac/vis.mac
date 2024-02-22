@@ -1,0 +1,48 @@
+# Copyright 2024 Holger Kluck
+# This file vis.mac is part of G4minWE.
+#
+# G4minWE is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# G4minWE is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
+ 
+#Initialse Geant4
+/run/initialize
+
+#Use OpenGL visualiser with 600 pixel x 600 pixel window size
+/vis/open OGL 600x600-0+0
+
+#Or create a HepRepXML file containing the visualisation
+#view it with JAS3
+#/vis/open HepRepXML
+
+#Visualiser should report errors
+/vis/verbose errors
+
+#Draw the geometry
+/vis/drawVolume
+
+#View on the scene from top
+/vis/viewer/set/viewpointVector -1 0 0
+
+#Draw the scene as wireframe
+/vis/viewer/set/style wireframe
+/vis/viewer/set/auxiliaryEdge true
+#Increase number of sampling points for circles
+/vis/viewer/set/lineSegmentsPerCircle 100
+
+#Add a scale to the visualisation
+/vis/scene/add/scale
+#Add a axes cross too
+/vis/scene/add/axes
+
+#For file-based drivers, use this to create an empty detector view:
+#/vis/viewer/flush
