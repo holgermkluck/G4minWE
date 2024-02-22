@@ -2,6 +2,7 @@
 
 To demonstrate the development from the most basic code to slightly elaborated code, this repository features certain _development stages_ as dedicated branches:
   - **stage_0** the code consists just of a main file and the CMake files needed to compile it. The produced binary can be executed but does not make anything.
+  - **stage_1** a detectorConstruction is added with constructs an air-filled world volume.
   
 ## Build and install G4minWE
 
