@@ -37,10 +37,10 @@ int main(int argc, char **argv) {
 	<< "\n"
 	<< " Contact: Holger Kluck (holger.kluck@oeaw.ac.at)\n"
 	<< "\n"
-	<< " GeigerMarsdenExperiment Copyright (C) 2024 Holger Kluck\n"
+	<< " G4minWE Copyright (C) 2024 Holger Kluck\n"
 	<< "  This program comes with ABSOLUTELY NO WARRANTY; this is free software,\n"
 	<< "  and you are welcome to redistribute it under certain conditions;\n"
-	<< "   see LICENSE.md for details." << G4endl;
+	<< "  see LICENSE.md for details." << G4endl;
 
 	/*-Setup user interface----------------------------------------------------*/
 	G4UIExecutive *ui = nullptr;
