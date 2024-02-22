@@ -28,7 +28,6 @@ public:
 	eventAction() = default;
 	~eventAction() override = default;
 
-	void BeginOfEventAction(const G4Event* anEvent) override;
 	void EndOfEventAction(const G4Event* anEvent) override;
 };
 
