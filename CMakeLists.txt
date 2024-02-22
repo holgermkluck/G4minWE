@@ -22,7 +22,7 @@
 cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 
 # Set name and version of the project, and which programming language is used
-project(GME VERSION 1.0.0 LANGUAGES CXX)
+project(G4minWE VERSION 1.0.0 LANGUAGES CXX)
 
 # Use GNU-style hierarchy for installing build products
 include(GNUInstallDirs)
