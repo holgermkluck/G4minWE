@@ -4,6 +4,7 @@ To demonstrate the development from the most basic code to slightly elaborated c
   - **stage_0** the code consists just of a main file and the CMake files needed to compile it. The produced binary can be executed but does not make anything.
   - **stage_1** a detectorConstruction is added with constructs an air-filled world volume.
   - **stage_2** a simple primary particle generator is add.
+  - **stage_3** define a Sensitive Detector and access the hit information via an event action class.
   
 ## Build and install G4minWE
 
