@@ -26,6 +26,10 @@
 #include "G4Box.hh"
 //To get physics units like meters
 #include "G4SystemOfUnits.hh"
+//To get detectors
+#include "G4MultiFunctionalDetector.hh"
+#include "G4SDManager.hh"
+#include "G4PSEnergyDeposit.hh"
 
 G4VPhysicalVolume* detectorConstruction::Construct() {
 	//Check for overlapping volumes?
@@ -100,4 +104,25 @@ G4VPhysicalVolume* detectorConstruction::Construct() {
 	new G4PVPlacement(nullptr, G4ThreeVector(-10.*cm, -10.*cm, -10.*cm), cube_logic, "cube", worldVoluem_logic, false, 0, checkOverlaps);
 
 	return worldVolume_physic;
+}
+
+void detectorConstruction::ConstructSDandField() {
+	//Define a "sensitive detector" (SD) that can register in
+	//principle several quantities
+	auto* detector = new G4MultiFunctionalDetector(
+			"cubeDetector"    //Name of SD
+			);
+	//Create a "scorer" the register deposited energy
+	auto* scorer = new G4PSEnergyDeposit(
+			"edep"            //Name of scorer
+			);
+	//Assign the scorer to the SD
+	detector->RegisterPrimitive(scorer);
+	//Assign the SD to the logical volume named "cube"
+	SetSensitiveDetector(
+			"cube",           //Name of logical volume
+			detector          //Pointer to SD
+			);
+	//Add the SD to the SD manager
+	G4SDManager::GetSDMpointer()->AddNewDetector(detector);
 }

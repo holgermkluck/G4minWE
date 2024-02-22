@@ -32,6 +32,8 @@ public:
 	//This method is needed; it will assemble the actual
 	//geometry of the setup to be simulated
 	G4VPhysicalVolume* Construct() override;
+	//This method will create "sensitive detectors"
+	void ConstructSDandField() override;
 };
 
 #endif /* INCLUDE_DETECTORCONSTRUCTION_HH_ */
