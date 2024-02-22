@@ -39,10 +39,8 @@
 #Increase number of sampling points for circles
 /vis/viewer/set/lineSegmentsPerCircle 100
 
-#Add a scale to the visualisation
-/vis/scene/add/scale
-#Add a axes cross too
-/vis/scene/add/axes
+#Add a axes cross which length of each axes of 1 m
+/vis/scene/add/axes 0 0 0 1 m
 
 #For file-based drivers, use this to create an empty detector view:
 #/vis/viewer/flush
