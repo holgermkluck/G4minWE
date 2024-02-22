@@ -1,6 +1,6 @@
 **G4minWE** is a _minimal working example_ of a Gean4 simulation. It is intended for educational purposes: to show the basic structure of a minimal but valid Geant4 program. It can also serve as a starting point for more elaborated programs.
 
-To demonstrate the development from the most basic code to slightly elaborated code, this repository tags certain _development stages_:
+To demonstrate the development from the most basic code to slightly elaborated code, this repository features certain _development stages_ as dedicated branches:
   - **stage_0** the code consists just of a main file and the CMake files needed to compile it. The produced binary can be executed but does not make anything.
   
 ## Build and install G4minWE
@@ -13,9 +13,9 @@ The source code of this program is maintained on [G4minWE's Git repository](http
 
 	git clone https://gitlab.cern.ch/cresst_cosinus/ImpCRESST.git <source>
 	cd <source>
-	git checkout tags/<tag>
+	git checkout -b <branch>
 
-and check out the tag `<tag>` e.g. `stage_0`.
+and check out the branch `<branch>` e.g. `stage_0`.
 
 The following assumes that G4minWE should be installed under `<install>`. One will also need a temporary build directory, e.g. `<build>`; it can be deleted after the installation. Then execute the following shell commands:
 
