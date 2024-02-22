@@ -97,7 +97,7 @@ G4VPhysicalVolume* detectorConstruction::Construct() {
 	G4double cubeHalfLength = 0.5*cm;
 	auto* cube_solid = new G4Box("cube", cubeHalfLength, cubeHalfLength, cubeHalfLength);
 	auto* cube_logic = new G4LogicalVolume(cube_solid, matAir, "cube");
-	new G4PVPlacement(nullptr, G4ThreeVector(-10.*cm, -10.*cm, -10.+cm), cube_logic, "cube", worldVoluem_logic, false, 0, checkOverlaps);
+	new G4PVPlacement(nullptr, G4ThreeVector(-10.*cm, -10.*cm, -10.*cm), cube_logic, "cube", worldVoluem_logic, false, 0, checkOverlaps);
 
 	return worldVolume_physic;
 }
