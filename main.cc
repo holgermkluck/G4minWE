@@ -17,6 +17,7 @@
  */
 
 #include "detectorConstruction.hh"
+#include "primaryParticleAction.hh"
 
 #include "G4UIExecutive.hh"
 #include "G4RunManager.hh"
@@ -57,6 +58,8 @@ int main(int argc, char **argv) {
 	runMgr->SetUserInitialization(new detectorConstruction);
 	//Set the physics list
 	runMgr->SetUserInitialization(new Shielding);
+	//Set primary particle generator
+	runMgr->SetUserAction(new primaryParticleAction);
 
 	/*-Initialise visualisation manager----------------------------------------*/
 	G4VisManager* visMgr = new G4VisExecutive;
