@@ -30,6 +30,9 @@ The following assumes that G4minWE should be installed under `<install>`. One wi
 
 Here, `<number of cores>` is the number of CPU cores assigned to the compilation process. One may add the line starting with `export LD_LIBRARY_PATH` to one's shell configuration files (e.g. `.bashrc`, `.zshrc`, etc.), otherwise one has to repeat it in each new shell instance.
 
+## Known issues
+  - When run within [VirtualBox](https://www.virtualbox.org/) with enabled 3D acceleration, the OGL visualisation will not draw lines. As workaround one has to disable 3D acceleration.
+ 
 ## Contact and support
 
 If further information or support is needed, one may contact the maintainers of G4minWE by writing to [holger.kluck@oeaw.ac.at](mailto:holger.kluck@oeaw.ac.at).
