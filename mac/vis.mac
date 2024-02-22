@@ -44,3 +44,6 @@
 
 #For file-based drivers, use this to create an empty detector view:
 #/vis/viewer/flush
+
+#Draw particle trajectories
+/vis/scene/add/trajectories smooth
