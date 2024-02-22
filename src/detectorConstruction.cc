@@ -71,5 +71,33 @@ G4VPhysicalVolume* detectorConstruction::Construct() {
 			checkOverlaps     //Check for overlapping volumes
 			);
 
+	//Place a small 1cm³ cube of PMMA (C5H8O2) within the word volume
+	//This time: define material from scratch
+	G4Material* matPMMA = new G4Material(
+			"PMMA",           //Name
+			1.18 * g / cm3,   //Density
+			3,                //number of constituents
+			kStateSolid,      //It's a solid
+			293.15 * kelvin,  //Room temperature 20°C=293.15K
+			1. * bar          //Standard pressure
+			);
+	//Materials consist of elements
+	G4Element *C = new G4Element(
+			"Carbon",         //Name of element
+			"C",              //Symbol of element
+			6.,               //Atomic number
+			12.01 * g / mole  //Atomic weight
+			);
+	matPMMA->AddElement(C, 5);//One PMMA unit consists of 5 carbon atoms
+	G4Element *H = new G4Element("Hydrogen", "H", 1., 1.01 * g / mole);
+	matPMMA->AddElement(H, 8);//and 8 hydrogen atoms
+	G4Element *O = new G4Element("Oxygen", "O", 8., 15.999 * g / mole);
+	matPMMA->AddElement(O, 2);//and 2 oxygen atoms
+	//Build the cube, associate PMMA to it, place it at (-10,-10,-10)cm
+	G4double cubeHalfLength = 0.5*cm;
+	auto* cube_solid = new G4Box("cube", cubeHalfLength, cubeHalfLength, cubeHalfLength);
+	auto* cube_logic = new G4LogicalVolume(cube_solid, matAir, "cube");
+	new G4PVPlacement(nullptr, G4ThreeVector(-10.*cm, -10.*cm, -10.+cm), cube_logic, "cube", worldVoluem_logic, false, 0, checkOverlaps);
+
 	return worldVolume_physic;
 }
