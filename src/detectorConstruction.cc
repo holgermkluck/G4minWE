@@ -38,7 +38,7 @@ G4VPhysicalVolume* detectorConstruction::Construct() {
 	auto* nistMgr = G4NistManager::Instance();
 	//Get a pointer to the "Air" material; for the names of the materials
 	//see https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html
-	auto* matAir = nistMgr->FindMaterial("G4_AIR");
+	auto* matAir = nistMgr->FindOrBuildMaterial("G4_AIR");
 
 	//Geant4 use half the edge size to define a cube
 	G4double worldHalfLength = 10.*m;
