@@ -52,6 +52,8 @@ int main(int argc, char **argv) {
 
 	/*-Setup run manager and user classes--------------------------------------*/
 	auto* runMgr = new G4RunManager;
+	//Set the detector construction
+	runMgr->SetUserInitialization(new detectorConstruction);
 
 	/*-Initialise visualisation manager----------------------------------------*/
 	G4VisManager* visMgr = new G4VisExecutive;
