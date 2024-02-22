@@ -23,6 +23,7 @@
 #include "G4VisExecutive.hh"
 #include "G4UImanager.hh"
 #include "G4ios.hh"
+#include "Shielding.hh"
 
 int main(int argc, char **argv) {
 	/*-Info printout-----------------------------------------------------------*/
@@ -54,6 +55,8 @@ int main(int argc, char **argv) {
 	auto* runMgr = new G4RunManager;
 	//Set the detector construction
 	runMgr->SetUserInitialization(new detectorConstruction);
+	//Set the physics list
+	runMgr->SetUserInitialization(new Shielding);
 
 	/*-Initialise visualisation manager----------------------------------------*/
 	G4VisManager* visMgr = new G4VisExecutive;
