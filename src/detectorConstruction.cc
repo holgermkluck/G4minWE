@@ -110,7 +110,7 @@ void detectorConstruction::ConstructSDandField() {
 	//Define a "sensitive detector" (SD) that can register in
 	//principle several quantities
 	auto* detector = new G4MultiFunctionalDetector(
-			"cubeDetector"    //Name of SD
+			"cube"    //Name of SD
 			);
 	//Create a "scorer" the register deposited energy
 	auto* scorer = new G4PSEnergyDeposit(
