@@ -47,6 +47,9 @@
 
 #Draw particle trajectories
 /vis/scene/add/trajectories smooth
+#Accumulate the trajectories; by default only the trajectory of the
+#current event is drawn
+/vis/scene/endOfEventAction accumulate
 
 #Increase verbosity
 /control/verbose 2
@@ -59,5 +62,5 @@
 /gun/energy 10 MeV
 /gun/direction -1 -1 -1
 
-#Simulate 10 events, one primary particle per event
-/run/beamOn 1
+#Simulate 2 events, one primary particle per event
+/run/beamOn 2
