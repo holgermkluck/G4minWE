@@ -26,7 +26,7 @@ class G4RootAnalysisManager;
 class eventAction : public G4UserEventAction{
 
 public:
-	eventAction() = default;
+	eventAction();
 	~eventAction() override = default;
 
 	void EndOfEventAction(const G4Event* anEvent) override;

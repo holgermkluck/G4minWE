@@ -26,7 +26,12 @@
 
 #include <map>
 
+//Need constructor only to set the pointer to the analysis manager
+eventAction::eventAction() : anaMgr(G4AnalysisManager::Instance()) {
+}
+
 void eventAction::EndOfEventAction(const G4Event* anEvent) {
+
 	//After the current event is finished, process the "hits" recorded
 	//by the scorer "edep" of SD "cube" to get the energy deposited
 	//inside "cube"
@@ -61,8 +66,16 @@ void eventAction::EndOfEventAction(const G4Event* anEvent) {
 		//We want the energy in multiples of MeV, so divide it by MeV
 		G4cout << "Energy deposited in cube: " << eDep/MeV << " MeV\n";
 		//Fill energy into Ntuple and histogram
-		anaMgr->FillH1(0, eDep);
-		anaMgr->FillNtupleDColumn(0, eDep);
+		//(one has to know that "cube_Edep" histogram was the first
+		//created in runAction, i.e. that it has the ID=0)
+		anaMgr->FillH1(
+				0,     //ID of the histogram to fill
+				eDep   //Value to fill in the histogram
+				);
+		anaMgr->FillNtupleDColumn(
+				0,     //ID of the histogram to fill
+				eDep   //Value to fill in the histogram
+				);
 		anaMgr->AddNtupleRow();
 	}
 
