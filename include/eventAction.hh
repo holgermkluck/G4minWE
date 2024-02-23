@@ -21,19 +21,19 @@
 
 #include "G4UserEventAction.hh"
 #include "G4EventManager.hh"
+#include "g4root.hh"
 class G4Event;
-class G4RootAnalysisManager;
 
 class eventAction : public G4UserEventAction{
 
 public:
-	eventAction();
+	eventAction() = default;
 	~eventAction() override = default;
 
 	void EndOfEventAction(const G4Event* anEvent) override;
 
 private:
-	G4RootAnalysisManager* anaMgr{nullptr};
+	G4RootAnalysisManager* anaMgr{G4AnalysisManager::Instance()};
 	G4EventManager* evtMgr {G4EventManager::GetEventManager()};
 };
 
