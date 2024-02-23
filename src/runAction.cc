@@ -40,7 +40,7 @@ runAction::runAction() {
 			"Energy deposition in cube CS", //Title of the histogram
 			1000,                           //1000 bins ...
 			0.,                             //between 0 ...
-			10.*MeV                         //and 10 MeV
+			100.*keV                        //and 100 keV
 			);
 }
 
