@@ -19,7 +19,7 @@
 #include "actionInitialiser.hh"
 #include "primaryParticleAction.hh"
 #include "eventAction.hh"
-#inlcude "runAction.hh"
+#include "runAction.hh"
 
 void actionInitialiser::Build() const {
 	//Set primary particle generator
