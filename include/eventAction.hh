@@ -21,6 +21,7 @@
 
 #include "G4UserEventAction.hh"
 class G4Event;
+class G4RootAnalysisManager;
 
 class eventAction : public G4UserEventAction{
 
@@ -29,6 +30,9 @@ public:
 	~eventAction() override = default;
 
 	void EndOfEventAction(const G4Event* anEvent) override;
+
+private:
+	G4RootAnalysisManager* anaMgr{nullptr};
 };
 
 #endif /* INCLUDE_EVENTACTION_HH_ */

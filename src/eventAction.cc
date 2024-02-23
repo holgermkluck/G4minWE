@@ -22,6 +22,7 @@
 #include "G4SDManager.hh"
 #include "G4THitsMap.hh"
 #include "G4SystemOfUnits.hh"
+#include "g4root.hh"
 
 #include <map>
 
@@ -59,6 +60,10 @@ void eventAction::EndOfEventAction(const G4Event* anEvent) {
 		G4double eDep = *(itr->second);
 		//We want the energy in multiples of MeV, so divide it by MeV
 		G4cout << "Energy deposited in cube: " << eDep/MeV << " MeV\n";
+		//Fill energy into Ntuple and histogram
+		anaMgr->FillH1(0, eDep);
+		anaMgr->FillNtupleDColumn(0, eDep);
+		anaMgr->AddNtupleRow();
 	}
 
 }
