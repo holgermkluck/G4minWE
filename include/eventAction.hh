@@ -20,6 +20,7 @@
 #define INCLUDE_EVENTACTION_HH_
 
 #include "G4UserEventAction.hh"
+#include "G4EventManager.hh"
 class G4Event;
 
 class eventAction : public G4UserEventAction{
@@ -29,6 +30,9 @@ public:
 	~eventAction() override = default;
 
 	void EndOfEventAction(const G4Event* anEvent) override;
+
+private:
+	G4EventManager* evtMgr {G4EventManager::GetEventManager()};
 };
 
 #endif /* INCLUDE_EVENTACTION_HH_ */
