@@ -20,6 +20,7 @@
 #define INCLUDE_EVENTACTION_HH_
 
 #include "G4UserEventAction.hh"
+#include "G4EventManager.hh"
 class G4Event;
 class G4RootAnalysisManager;
 
@@ -33,6 +34,7 @@ public:
 
 private:
 	G4RootAnalysisManager* anaMgr{nullptr};
+	G4EventManager* evtMgr {G4EventManager::GetEventManager()};
 };
 
 #endif /* INCLUDE_EVENTACTION_HH_ */

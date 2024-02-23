@@ -63,7 +63,11 @@ void eventAction::EndOfEventAction(const G4Event* anEvent) {
 		//The iterator itr points to an pair, to get the second element, i.e.
 		//the value of the pair, do:
 		G4double eDep = *(itr->second);
-		//We want the energy in multiples of MeV, so divide it by MeV
+		//If verbosity is at least 1, then print the energy to screen
+		if(evtMgr->GetVerboseLevel() >= 1){
+			//We want the energy in multiples of MeV, so divide it by MeV
+			G4cout << "Energy deposited in cube: " << eDep/MeV << " MeV\n";
+		}
 		G4cout << "Energy deposited in cube: " << eDep/MeV << " MeV\n";
 		//Fill energy into Ntuple and histogram
 		//(one has to know that "cube_Edep" histogram was the first
@@ -77,6 +81,7 @@ void eventAction::EndOfEventAction(const G4Event* anEvent) {
 				eDep   //Value to fill in the histogram
 				);
 		anaMgr->AddNtupleRow();
+
 	}
 
 }
