@@ -21,15 +21,19 @@
 
 #include "G4UserRunAction.hh"
 class G4Run;
+class G4RootAnalysisManager;
 
 class runAction : public G4UserRunAction{
 
 public:
-	runAction() = default;
+	runAction();
 	~runAction() override = default;
 
 	void BeginOfRunAction(const G4Run*) override;
 	void   EndOfRunAction(const G4Run*) override;
+
+private:
+	G4RootAnalysisManager* anaMgr{nullptr};
 
 };
 
