@@ -125,23 +125,33 @@ G4VPhysicalVolume* detectorConstruction::Construct() {
 	auto* foil_solid = new G4Box("foil", foilThickness/2., foilLength/2., foilLength/2.);
 	G4Material* matFoil = nistMgr->FindOrBuildMaterial("G4_Au");
 	auto* foil_logic = new G4LogicalVolume(foil_solid, matFoil, "foil");
-	new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -innerHeight/2+foilLength/2+distBottomFoil), foil_logic, "foil", vac_logic, false, 0, checkOverlaps);
+	//Distance of the center of the foil to the bottom of the vessel
+	G4double distFoilCenterBottom = foilLength/2+distBottomFoil;
+	new G4PVPlacement(nullptr, G4ThreeVector(0., 0., -innerHeight/2+distFoilCenterBottom), foil_logic, "foil", vac_logic, false, 0, checkOverlaps);
 
-	//The Pb block minus the hole
+	//The Pb block minus the hole drilled to the source location
+	//First the hole itself
 	G4double blockHeight = 1.8*scale;
 	G4double blockThickness = (1.3-0.5)*scale;
 	G4double distBottomBlock = 0.2*scale;
 	auto* block_ = new G4Box("block_", blockThickness/2., blockThickness/2., blockHeight/2.);
-	G4double notchDepth = 0.1*scale;
-	G4double notchHeight = 0.2*scale;
-	G4double distBottomNotch = 1.4*scale;
-	G4double distBlockCapsule_x = (1-0.5)*scale;
-	G4double distBlock = 0.5*scale;//Distance between block and center of vessel along x-axis
+	//The hole
+	G4double holeDiameter = 1.*mm;
+	//Distance between the block surface and the center of the source capsule along x-axis
+	G4double distBlockCapsule = (1-0.5)*scale;
+	//Distance between block and center of vessel along x-axis
+	G4double distBlock = 0.5*scale;
 	G4double margin = 1.*mm;
-	auto* hole = new G4Tubs("hole", 0, notchDepth/2., distBlockCapsule_x/2., 0*degree, 360*degree);
+	auto* hole = new G4Tubs("hole", 0, holeDiameter/2., distBlockCapsule/2., 0*degree, 360*degree);
 	G4RotationMatrix* mat = new G4RotationMatrix();
 	mat->rotateY(270*degree);
-	auto* block_solid = new G4SubtractionSolid("block", block_, hole, mat, G4ThreeVector(-blockThickness/2.+distBlockCapsule_x/2., 0, -blockHeight/2.+notchHeight/2.+(distBottomNotch-distBottomBlock)));
+	//Assume that the hole coincide with the center of the foil (distance relative to bottom of vessel)
+	G4double distHoleCenterBottom = distFoilCenterBottom;
+	//Now go the distance with respect to the bottom of the block
+	distHoleCenterBottom -= distBottomBlock;
+	//Now go to the distance with respect to the center of the block
+	distHoleCenterBottom -= blockHeight/2.;
+	auto* block_solid = new G4SubtractionSolid("block", block_, hole, mat, G4ThreeVector(-blockThickness/2.+distBlockCapsule/2., 0, distHoleCenterBottom));
 	G4Material* matLead = nistMgr->FindOrBuildMaterial("G4_Pb");
 	auto* block_logic = new G4LogicalVolume(block_solid, matLead, "block");
 	new G4PVPlacement(nullptr, G4ThreeVector(blockThickness/2.+distBlock, 0., -innerHeight/2+blockHeight/2+distBottomBlock), block_logic, "block", vac_logic, false, 0, checkOverlaps);
@@ -164,7 +174,9 @@ G4VPhysicalVolume* detectorConstruction::Construct() {
 	G4Element *elS = new G4Element("Sulfur", "S", 16., 32.06 * g / mole);
 	matZnS->AddElement(elS, 1);
 	auto* screen_logic = new G4LogicalVolume(screen_solid, matZnS, "screen");
-	new G4PVPlacement(nullptr, G4ThreeVector(), screen_logic, "screen", vac_logic, false, 0, checkOverlaps);
+	//Assume that the screen is centered on the foil along the z-axis (distance relative to bottom of vessel)
+	G4double distScreenCenterBottom = distFoilCenterBottom;
+	new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -innerHeight/2.+distScreenCenterBottom), screen_logic, "screen", vac_logic, false, 0, checkOverlaps);
 
 	return worldVolume_physic;
 }
