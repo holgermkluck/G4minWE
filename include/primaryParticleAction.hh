@@ -21,7 +21,7 @@
 
 #include "G4VUserPrimaryGeneratorAction.hh"
 class G4Event;
-class G4ParticleGun;
+class G4GeneralParticleSource;
 
 class primaryParticleAction : public G4VUserPrimaryGeneratorAction{
 
@@ -32,7 +32,7 @@ public:
 	void GeneratePrimaries(G4Event*) override;
 
 private:
-	G4ParticleGun* gun {nullptr};
+	G4GeneralParticleSource* gun {nullptr};
 };
 
 
