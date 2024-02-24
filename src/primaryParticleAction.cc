@@ -17,21 +17,13 @@
  */
 
 #include "primaryParticleAction.hh"
-#include "G4ParticleGun.hh"
-#include "G4ParticleTable.hh"
+#include "G4GeneralParticleSource.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4Event.hh"
 
 primaryParticleAction::primaryParticleAction() {
 	//Create a "particle gun" that shoot one particle during each event
-	gun = new G4ParticleGun(1);
-	//Particle should be a alpha of 10MeV shot in direction (1,0,0)
-	//from position (0,0,0)m
-	auto* particleDef = G4ParticleTable::GetParticleTable()->FindParticle("alpha");
-	gun->SetParticleDefinition(particleDef);
-	gun->SetParticleMomentumDirection(G4ThreeVector(1., 0., 0.));
-	gun->SetParticleEnergy(10.*MeV);
-	gun->SetParticlePosition(G4ThreeVector());
+	gun = new G4GeneralParticleSource();
 }
 
 primaryParticleAction::~primaryParticleAction() {
