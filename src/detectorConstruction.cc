@@ -161,8 +161,8 @@ G4VPhysicalVolume* detectorConstruction::Construct() {
 	G4double screenRadius = 0.8*scale;
 	//Not given in paper, assume ~100um like here [https://mediatum.ub.tum.de/doc/1614751/document.pdf]
 	G4double screenThickness = 100.*um;
-	G4double screenStartAngle = 30.*degree;
-	G4double screenAngleSegment = 300.*degree;//From -150° to 150°
+	G4double screenStartAngle = 32.*degree;
+	G4double screenAngleSegment = 296.*degree;//From -150° to 150°; reduce by 2° on each side to avoid overlap with Pb block
 	auto* screen_solid = new G4Tubs("screen", screenRadius-screenThickness, screenRadius, screenHeight/2., screenStartAngle, screenAngleSegment);
 	//ZnS is not predefined by Geant4, so have to defined it from scratch
 	//https://en.wikipedia.org/wiki/Zinc_sulfide
