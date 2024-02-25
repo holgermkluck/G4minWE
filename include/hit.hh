@@ -51,7 +51,7 @@ private:
 	G4ThreeVector Position;
 };
 
-using TrackerHitsCollection = G4THitsCollection<Hit>;
+using HitsCollection = G4THitsCollection<Hit>;
 
 extern G4ThreadLocal G4Allocator<Hit> *TrackerHitAllocator;
 
