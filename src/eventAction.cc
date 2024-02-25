@@ -54,21 +54,36 @@ void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 		//The iterator itr points to an pair, to get the second element, i.e.
 		//the value of the pair, do:
 		G4double eDep = hit->GetEnergyDeposit();
+		const G4ThreeVector& pos = hit->GetPosition();
 		//If verbosity is at least 1, then print the energy to screen
 		if(evtMgr->GetVerboseLevel() >= 1){
 			//We want the energy in multiples of MeV, so divide it by MeV
-			G4cout << "Energy deposited in cube: " << eDep/MeV << " MeV\n";
+			G4cout << "Energy deposited in cube: " << eDep/MeV << " MeV\n"
+					<< " at position " << pos/mm << " mm" << G4endl;
 		}
 		//Fill energy into Ntuple and histogram
 		//(one has to know that "cube_Edep" histogram was the first
-		//created in runAction, i.e. that it has the ID=0)
+		//created in runAction, i.e. that it has the ID=0; similarly
+		//the IDs of posX, posY, posZ are 1, 2, 3, respectively)
 		anaMgr->FillH1(
 				0,     //ID of the histogram to fill
 				eDep   //Value to fill in the histogram
 				);
 		anaMgr->FillNtupleDColumn(
-				0,     //ID of the histogram to fill
-				eDep   //Value to fill in the histogram
+				0,     //ID of the column to fill
+				eDep   //Value to fill in the column
+				);
+		anaMgr->FillNtupleDColumn(
+				1,     //ID of the column to fill
+				pos.x()//Value to fill in the column
+				);
+		anaMgr->FillNtupleDColumn(
+				2,     //ID of the column to fill
+				pos.y()//Value to fill in the column
+				);
+		anaMgr->FillNtupleDColumn(
+				3,     //ID of the column to fill
+				pos.z()//Value to fill in the column
 				);
 		anaMgr->AddNtupleRow();
 
