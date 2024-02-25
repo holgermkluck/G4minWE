@@ -26,7 +26,7 @@
 #include <map>
 
 
-void EventAction::EndOfEventAction(const G4Event* anEvent) {
+void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 	//After the current event is finished, process the "hits" recorded
 	//by the scorer "edep" of SD "cube" to get the energy deposited
 	//inside "cube"

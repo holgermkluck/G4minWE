@@ -23,6 +23,7 @@
 #include "G4EventManager.hh"
 class G4Event;
 
+namespace G4minWE{
 class EventAction : public G4UserEventAction{
 
 public:
@@ -34,5 +35,6 @@ public:
 private:
 	G4EventManager* evtMgr {G4EventManager::GetEventManager()};
 };
+}
 
 #endif /* INCLUDE_EVENTACTION_HH_ */
