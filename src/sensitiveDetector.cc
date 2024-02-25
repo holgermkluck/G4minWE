@@ -47,9 +47,9 @@ G4bool G4minWE::SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory*
 		return false;
 	}
 	//Otherwise create a new hit
-	Hit *newHit = new Hit();
+	auto *newHit = new G4minWE::Hit();
 	//And set the data
-	newHit->SetEnergyDeposit(edep);
+	newHit->SetEnergDeposit(edep);
 	newHit->SetPosition(step->GetPostStepPoint()->GetPosition());
 
 	HCollection->insert(newHit);
