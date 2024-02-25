@@ -51,7 +51,7 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step,
 	auto newHit = new Hit();
 	//And set the data
 	newHit->SetEnergyDeposit(edep);
-	newHit->SetPosition(aStep->GetPostStepPoint()->GetPosition());
+	newHit->SetPosition(step->GetPostStepPoint()->GetPosition());
 
 	HCollection->insert(newHit);
 
