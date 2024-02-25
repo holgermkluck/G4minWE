@@ -23,18 +23,19 @@
 class G4Event;
 class G4ParticleGun;
 
-class primaryParticleAction : public G4VUserPrimaryGeneratorAction{
+namespace G4minWE{
+
+class PrimaryParticleAction : public G4VUserPrimaryGeneratorAction{
 
 public:
-	primaryParticleAction();
-	~primaryParticleAction() override;
+	PrimaryParticleAction();
+	~PrimaryParticleAction() override;
 
 	void GeneratePrimaries(G4Event*) override;
 
 private:
 	G4ParticleGun* gun {nullptr};
 };
-
-
+}
 
 #endif /* INCLUDE_PRIMARYPARTICLEACTION_HH_ */

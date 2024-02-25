@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 	//Set the physics list
 	runMgr->SetUserInitialization(new Shielding);
 	//Set primary particle generator
-	runMgr->SetUserAction(new primaryParticleAction);
+	runMgr->SetUserAction(new G4minWE::PrimaryParticleAction);
 
 	/*-Initialise visualisation manager----------------------------------------*/
 	G4VisManager* visMgr = new G4VisExecutive;
