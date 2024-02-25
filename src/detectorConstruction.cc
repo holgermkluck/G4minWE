@@ -145,7 +145,6 @@ G4VPhysicalVolume* G4minWE::DetectorConstruction::Construct() {
 	G4double distBlockCapsule = (1-0.5)*scale;
 	//Distance between block and center of vessel along x-axis
 	G4double distBlock = 0.5*scale;
-	G4double margin = 1.*mm;
 	auto* hole = new G4Tubs("hole", 0, holeDiameter/2., distBlockCapsule/2., 0*degree, 360*degree);
 	G4RotationMatrix* mat = new G4RotationMatrix();
 	mat->rotateY(270*degree);
