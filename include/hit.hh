@@ -43,13 +43,16 @@ public:
 
 	void SetEnergDeposit(G4double edep);
 	void SetPosition(const G4ThreeVector &pos);
+	void SetDirection(const G4ThreeVector &dir);
 
 	G4double GetEnergyDeposit() const;
 	G4ThreeVector GetPosition() const;
+	G4ThreeVector GetDirection() const;
 
 private:
 	G4double EnergyDeposit { 0. };
 	G4ThreeVector Position;
+	G4ThreeVector Direction;
 };
 
 using HitsCollection = G4THitsCollection<Hit>;
@@ -66,6 +69,7 @@ inline void* Hit::operator new(size_t) {
 inline void Hit::operator delete(void *hit) {
 	HitAllocator->FreeSingle((Hit*) hit);
 }
+
 }
 
 #endif /* INCLUDE_HIT_HH_ */

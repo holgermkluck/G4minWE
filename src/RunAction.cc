@@ -26,29 +26,32 @@ G4minWE::RunAction::RunAction() {
 	anaMgr = G4AnalysisManager::Instance();
 	//Create Ntuple
 	anaMgr->CreateNtuple(
-			"cube",              //Name of the Ntuple
-			"Data from cube SD"  //Description of the Ntuple
+			"screen",               //Name of the Ntuple
+			"Data from ZnS screen"  //Description of the Ntuple
 			);
 	//Create a column of doubles
 	anaMgr->CreateNtupleDColumn("Edep");
 	anaMgr->CreateNtupleDColumn("PosX");
 	anaMgr->CreateNtupleDColumn("PosY");
 	anaMgr->CreateNtupleDColumn("PosZ");
+	anaMgr->CreateNtupleDColumn("DirX");
+	anaMgr->CreateNtupleDColumn("DirY");
+	anaMgr->CreateNtupleDColumn("DirZ");
 	//Finalize the Ntuple
 	anaMgr->FinishNtuple();
 	//Create 1D histogram
 	anaMgr->CreateH1(
-			"cube_Edep",                    //Name of the histogram
-			"Energy deposition in cube CS", //Title of the histogram
-			1000,                           //1000 bins ...
-			0.,                             //between 0 ...
-			100.*keV                        //and 100 keV
+			"screen_Edep",                     //Name of the histogram
+			"Energy deposition in ZnS screen", //Title of the histogram
+			1000,                              //1000 bins ...
+			0.,                                //between 0 ...
+			100.*keV                           //and 100 keV
 			);
 }
 
 void G4minWE::RunAction::BeginOfRunAction(const G4Run*) {
 	//Open the output file
-	G4String fileName = "cube.root";
+	G4String fileName = "screen.root";
 	anaMgr->OpenFile(fileName);
 }
 

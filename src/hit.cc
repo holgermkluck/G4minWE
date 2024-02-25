@@ -67,3 +67,11 @@ G4ThreeVector G4minWE::Hit::GetPosition() const {
 	return Position;
 }
 
+void G4minWE::Hit::SetDirection(const G4ThreeVector &dir) {
+	Direction = dir;
+}
+
+G4ThreeVector G4minWE::Hit::GetDirection() const {
+	return Direction;
+}
+
