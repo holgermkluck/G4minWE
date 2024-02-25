@@ -42,7 +42,7 @@ void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 
 	//2)   Select the hit collection of scrorer "edep" of SD "cube"
 	//2.1) Get the ID of the scorer "edep" of SD "cube"
-	G4int id = G4SDManager::GetSDMpointer()->GetCollectionID("cubeHC");
+	G4int id = G4SDManager::GetSDMpointer()->GetCollectionID("screenHC");
 	//2.2) With the ID select the HC
 	auto* hitCol = hce->GetHC(id);
 	//2.3) Get a vector
