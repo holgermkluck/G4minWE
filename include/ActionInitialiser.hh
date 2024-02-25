@@ -21,11 +21,11 @@
 
 #include "G4VUserActionInitialization.hh"
 
-class actionInitialiser : public G4VUserActionInitialization {
+class ActionInitialiser : public G4VUserActionInitialization {
 
 public:
-	actionInitialiser() = default;
-	~actionInitialiser () override = default;
+	ActionInitialiser() = default;
+	~ActionInitialiser () override = default;
 
 	void Build() const override;
 };

@@ -16,11 +16,12 @@
  * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "actionInitialiser.hh"
+#include "../include/ActionInitialiser.hh"
+
 #include "primaryParticleAction.hh"
 #include "eventAction.hh"
 
-void actionInitialiser::Build() const {
+void ActionInitialiser::Build() const {
 	//Set primary particle generator
 	SetUserAction(new G4minWE::PrimaryParticleAction);
 	//Set event action
