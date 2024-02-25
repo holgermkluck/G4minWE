@@ -17,7 +17,7 @@
  */
 
 #include "detectorConstruction.hh"
-#include "include/actionInitialiser.hh"
+#include "actionInitialiser.hh"
 #include "G4UIExecutive.hh"
 #include "G4RunManager.hh"
 #include "G4VisExecutive.hh"

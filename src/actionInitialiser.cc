@@ -16,8 +16,8 @@
  * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../include/actionInitialiser.hh"
-#include "../include/eventAction.hh"
+#include "actionInitialiser.hh"
+#include "eventAction.hh"
 #include "primaryParticleAction.hh"
 
 void G4minWE::ActionInitialiser::Build() const {
