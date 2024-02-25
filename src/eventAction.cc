@@ -16,8 +16,7 @@
  * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../include/EventAction.hh"
-
+#include "../include/eventAction.hh"
 #include "G4Event.hh"
 #include "G4SDManager.hh"
 #include "G4THitsMap.hh"
