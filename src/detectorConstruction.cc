@@ -194,7 +194,7 @@ void G4minWE::DetectorConstruction::ConstructSDandField() {
 
 	//Assign the SD to the logical volume named "cube"
 	SetSensitiveDetector(
-			"screen_logic",   //Name of logical volume
+			"screen",         //Name of logical volume
 			detector          //Pointer to SD
 			);
 	//Add the SD to the SD manager
