@@ -22,7 +22,7 @@
 
 void actionInitialiser::Build() const {
 	//Set primary particle generator
-	SetUserAction(new primaryParticleAction);
+	SetUserAction(new G4minWE::PrimaryParticleAction);
 	//Set event action
 	SetUserAction(new eventAction);
 }

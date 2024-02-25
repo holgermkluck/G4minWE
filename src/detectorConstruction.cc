@@ -33,7 +33,7 @@
 #include "G4SDManager.hh"
 #include "G4PSEnergyDeposit.hh"
 
-G4VPhysicalVolume* detectorConstruction::Construct() {
+G4VPhysicalVolume* G4minWE::DetectorConstruction::Construct() {
 	//Check for overlapping volumes?
 	G4bool checkOverlaps = false;
 
@@ -108,7 +108,7 @@ G4VPhysicalVolume* detectorConstruction::Construct() {
 	return worldVolume_physic;
 }
 
-void detectorConstruction::ConstructSDandField() {
+void G4minWE::DetectorConstruction::ConstructSDandField() {
 	//Define a "sensitive detector" (SD) that can register in
 	//principle several quantities
 	auto* detector = new G4MultiFunctionalDetector(
