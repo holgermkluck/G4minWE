@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
 	//Set the physics list
 	runMgr->SetUserInitialization(new Shielding);
 	//Set user action initializer
-	runMgr->SetUserInitialization(new ActionInitialiser);
+	runMgr->SetUserInitialization(new G4minWE::ActionInitialiser);
 
 	/*-Initialise visualisation manager----------------------------------------*/
 	G4VisManager* visMgr = new G4VisExecutive;

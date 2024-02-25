@@ -21,7 +21,7 @@
 #include "primaryParticleAction.hh"
 #include "eventAction.hh"
 
-void ActionInitialiser::Build() const {
+void G4minWE::ActionInitialiser::Build() const {
 	//Set primary particle generator
 	SetUserAction(new G4minWE::PrimaryParticleAction);
 	//Set event action

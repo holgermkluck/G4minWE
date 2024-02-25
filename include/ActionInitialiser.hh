@@ -21,6 +21,7 @@
 
 #include "G4VUserActionInitialization.hh"
 
+namespace G4minWE{
 class ActionInitialiser : public G4VUserActionInitialization {
 
 public:
@@ -29,7 +30,6 @@ public:
 
 	void Build() const override;
 };
-
-
+}
 
 #endif /* INCLUDE_ACTIONINITIALISER_HH_ */
