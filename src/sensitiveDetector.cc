@@ -29,13 +29,13 @@ SensitiveDetector::SensitiveDetector(const G4String &name,
 }
 
 void SensitiveDetector::Initialize(G4HCofThisEvent *hitCollection) {
-	HitsCollection = new HitsCollection(SensitiveDetectorName,
+	HCollection = new HitsCollection(SensitiveDetectorName,
 			collectionName[0]);
 
 	//Add this collection to hce
 	G4int hcID = G4SDManager::GetSDMpointer()->GetCollectionID(
 			collectionName[0]);
-	hitCollection->AddHitsCollection(hcID, HitsCollection);
+	hitCollection->AddHitsCollection(hcID, HCollection);
 
 }
 
@@ -53,18 +53,18 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step,
 	newHit->SetEnergyDeposit(edep);
 	newHit->SetPosition(aStep->GetPostStepPoint()->GetPosition());
 
-	HitsCollection->insert(newHit);
+	HCollection->insert(newHit);
 
 	return true;
 }
 
 void SensitiveDetector::EndOfEvent(G4HCofThisEvent *hitCollection) {
 	if (verboseLevel > 1) {
-		std::size_t nbHits = HitsCollection->entries();
+		std::size_t nbHits = HCollection->entries();
 		G4cout << "\n" << "-------->Hits Collection: in this event they are "
 				<< nbHits << " hits in the tracker chambers: " << G4endl;
 		for (std::size_t i = 0; i < nbHits; ++i) {
-			(*HitsCollection)[i]->Print();
+			(*HCollection)[i]->Print();
 		}
 	}
 

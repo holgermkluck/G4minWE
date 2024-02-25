@@ -34,7 +34,7 @@ public:
 	void EndOfEvent(G4HCofThisEvent *hitCollection) override;
 
 private:
-	HitsCollection *HitsCollection {nullptr};
+	HitsCollection *HCollection {nullptr};
 };
 
 #endif /* INCLUDE_SENSITIVEDETECTOR_HH_ */
