@@ -54,17 +54,17 @@ private:
 
 using HitsCollection = G4THitsCollection<Hit>;
 
-extern G4ThreadLocal G4Allocator<Hit> *TrackerHitAllocator;
+extern G4ThreadLocal G4Allocator<Hit> *HitAllocator;
 
 inline void* Hit::operator new(size_t) {
-	if (!TrackerHitAllocator) {
-		TrackerHitAllocator = new G4Allocator<Hit>;
+	if (!HitAllocator) {
+		HitAllocator = new G4Allocator<Hit>;
 	}
-	return (void*) TrackerHitAllocator->MallocSingle();
+	return (void*) HitAllocator->MallocSingle();
 }
 
 inline void Hit::operator delete(void *hit) {
-	TrackerHitAllocator->FreeSingle((Hit*) hit);
+	HitAllocator->FreeSingle((Hit*) hit);
 }
 }
 
