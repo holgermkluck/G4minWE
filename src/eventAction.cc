@@ -17,12 +17,13 @@
  */
 
 #include "eventAction.hh"
+#include "hit.hh"
 #include "G4Event.hh"
 #include "G4SDManager.hh"
 #include "G4THitsMap.hh"
 #include "G4SystemOfUnits.hh"
 
-#include <map>
+#include <vector>
 
 void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 	//After the current event is finished, process the "hits" recorded
@@ -45,17 +46,16 @@ void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 	//2.2) With the ID select the HC
 	auto* hitCol = hce->GetHC(id);
 	//2.3) Cast the collection to a map
-	G4THitsMap<G4double>* hitMap = static_cast<G4THitsMap<G4double>*>(hitCol);
+	auto* hitVec = static_cast<G4minWE::HitsCollection*>(hitCol)->GetVector();
 
 	//3)   Iterate over the entries in the map; the entries a pairs of <key, value>
 	//     we are interest in the value, i.e. the second element of a pair.
 	//     The value is the quantity measured by the scorer, i.e. for the "cube/edep"
 	//     it is the energy deposited inside the SD cube.
-	std::map<G4int,G4double*>::iterator itr;
-	for (itr = hitMap->GetMap()->begin(); itr != hitMap->GetMap()->end(); itr++){
+	for (auto* hit : *hitVec){
 		//The iterator itr points to an pair, to get the second element, i.e.
 		//the value of the pair, do:
-		G4double eDep = *(itr->second);
+		G4double eDep = hit->GetEnergyDeposit();
 		//If verbosity is at least 1, then print the energy to screen
 		if(evtMgr->GetVerboseLevel() >= 1){
 			//We want the energy in multiples of MeV, so divide it by MeV
