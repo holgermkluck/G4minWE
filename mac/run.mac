@@ -24,9 +24,26 @@
 /tracking/verbose 1
 
 #Chose a gamma of 6 MeV as primar particle
-/gun/particle e-
-/gun/energy 10 MeV
-/gun/direction -1 -1 -1
+/gps/particle ion
+#Radium emanation = 222Rn
+#see https://en.wikipedia.org/wiki/Radon
+/gps/ion 86 222
+/gps/pos/type Point
+#z-position in absolute world coordiantes
+#The vessel center coincide with the origin of coordinates
+#+0.3/2 #Displacement of vaccum center with respect to vessel center
+#-3.5/2 #Distance from vacuum center to bottom of vaccum
+#+0.8   #Distacne from bottom of vaccum to bottom of foil
+#+1.5/2 #Distacne from bottom of foil to center of foil
+#As center for foil is align with source -> z-coordinate of source
+#Given in units of 1.2cm
+#->z=-0.05*1.2cm=-0.06cm
+#Distance between center of vessel and source is one unit=1.2cm
+/gps/pos/centre 1.1 0.0 -0.06 cm
+#Isotropic
+/gps/ang/type iso
+#Nuclei at rest
+/gps/energy 0 MeV
 
 #Simulate 2 events, one primary particle per event
 /run/beamOn 100
