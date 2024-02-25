@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Holger Kluck
- * This file detectorConstruction.hh is part of G4minWE.
+ * This file actionInitialiser.hh is part of G4minWE.
  *
  * G4minWE is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,24 +16,20 @@
  * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_DETECTORCONSTRUCTION_HH_
-#define INCLUDE_DETECTORCONSTRUCTION_HH_
+#ifndef INCLUDE_ACTIONINITIALISER_HH_
+#define INCLUDE_ACTIONINITIALISER_HH_
 
-#include "G4VUserDetectorConstruction.hh"
-class G4VPhysicalVolume;
+#include "G4VUserActionInitialization.hh"
 
-class detectorConstruction : public G4VUserDetectorConstruction {
+class actionInitialiser : public G4VUserActionInitialization {
+
 public:
+	actionInitialiser() = default;
+	~actionInitialiser () override = default;
 
-	//Let C++ define default constructor and destrcutor
-	detectorConstruction() = default;
-	~detectorConstruction() override = default;
-
-	//This method is needed; it will assemble the actual
-	//geometry of the setup to be simulated
-	G4VPhysicalVolume* Construct() override;
-	//This method will create "sensitive detectors"
-	void ConstructSDandField() override;
+	void Build() const override;
 };
 
-#endif /* INCLUDE_DETECTORCONSTRUCTION_HH_ */
+
+
+#endif /* INCLUDE_ACTIONINITIALISER_HH_ */
