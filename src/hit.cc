@@ -25,6 +25,8 @@
 
 #include <iostream>
 
+G4ThreadLocal G4Allocator<G4minWE::Hit>* G4minWE::TrackerHitAllocator = nullptr;
+
 G4bool G4minWE::Hit::operator ==(const Hit &right) const {
 	return (this == &right) ? true : false;
 }
