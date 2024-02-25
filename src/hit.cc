@@ -20,6 +20,7 @@
 
 #include "G4VVisManager.hh"
 #include "G4Circle.hh"
+#include "G4VisAttributes.hh"
 #include "G4SystemOfUnits.hh"
 
 #include <iostream>
@@ -38,8 +39,8 @@ void Hit::Draw() {
 		G4Circle circle(Position);
 		circle.SetScreenSize(4.);
 		circle.SetFillStyle(G4Circle::filled);
-		auto attributes(G4Colour::Blue());
-		circle.SetVisAttributes(attributes);
+		G4VisAttributes visAttribs(G4Colour::Blue());
+		circle.SetVisAttributes(visAttribs);
 		pVVisManager->Draw(circle);
 	}
 }
