@@ -21,19 +21,18 @@
 #include "G4SystemOfUnits.hh"
 #include "G4Event.hh"
 
-primaryParticleAction::primaryParticleAction() {
+G4minWE::PrimaryParticleAction::PrimaryParticleAction() {
 	//Create a "particle gun" that shoot one particle during each event
 	gun = new G4GeneralParticleSource();
 }
 
-primaryParticleAction::~primaryParticleAction() {
+G4minWE::PrimaryParticleAction::~PrimaryParticleAction() {
 	delete gun;
 }
 
-void primaryParticleAction::GeneratePrimaries(G4Event* evt) {
+void G4minWE::PrimaryParticleAction::GeneratePrimaries(G4Event* evt) {
 	//This method is called by Geant4 at the beginning of each
 	//event: it will create the vertex of the primary particle
 	gun->GeneratePrimaryVertex(evt);
 }
-
 

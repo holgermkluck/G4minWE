@@ -1,0 +1,69 @@
+/*
+ * Copyright 2024 Holger Kluck
+ * This file hit.cc is part of G4minWE.
+ *
+ * G4minWE is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * G4minWE is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "hit.hh"
+
+#include "G4VVisManager.hh"
+#include "G4Circle.hh"
+#include "G4VisAttributes.hh"
+#include "G4UnitsTable.hh"
+
+#include <iostream>
+
+G4ThreadLocal G4Allocator<G4minWE::Hit>* G4minWE::HitAllocator = nullptr;
+
+G4bool G4minWE::Hit::operator ==(const Hit &right) const {
+	return (this == &right) ? true : false;
+}
+
+void G4minWE::Hit::Draw() {
+	auto *pVVisManager = G4VVisManager::GetConcreteInstance();
+	if (pVVisManager) {
+		G4Circle circle(Position);
+		circle.SetScreenSize(4.);
+		circle.SetFillStyle(G4Circle::filled);
+		G4VisAttributes visAttribs(G4Colour::Blue());
+		circle.SetVisAttributes(visAttribs);
+		pVVisManager->Draw(circle);
+	}
+}
+
+void G4minWE::Hit::Print() {
+	G4cout
+	<< " Edep: " << std::setw(7) << G4BestUnit(EnergyDeposit, "Energy")
+	<< " Position: " << std::setw(7) << G4BestUnit(Position, "Length")
+	<< G4endl;
+
+}
+
+void G4minWE::Hit::SetEnergDeposit(G4double edep) {
+	EnergyDeposit = edep;
+}
+
+void G4minWE::Hit::SetPosition(const G4ThreeVector &pos) {
+	Position = pos;
+}
+
+G4double G4minWE::Hit::GetEnergyDeposit() const {
+	return EnergyDeposit;
+}
+
+G4ThreeVector G4minWE::Hit::GetPosition() const {
+	return Position;
+}
+

@@ -16,12 +16,11 @@
  * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "runAction.hh"
-
+#include "../include/runAction.hh"
 #include "g4root.hh"
 #include "G4SystemOfUnits.hh"
 
-runAction::runAction() {
+G4minWE::RunAction::RunAction() {
 	//Get instance of the analysis manager, because we include
 	//g4root.hh we will get a G4RootAnalysisManager
 	anaMgr = G4AnalysisManager::Instance();
@@ -32,6 +31,9 @@ runAction::runAction() {
 			);
 	//Create a column of doubles
 	anaMgr->CreateNtupleDColumn("Edep");
+	anaMgr->CreateNtupleDColumn("PosX");
+	anaMgr->CreateNtupleDColumn("PosY");
+	anaMgr->CreateNtupleDColumn("PosZ");
 	//Finalize the Ntuple
 	anaMgr->FinishNtuple();
 	//Create 1D histogram
@@ -44,13 +46,13 @@ runAction::runAction() {
 			);
 }
 
-void runAction::BeginOfRunAction(const G4Run*) {
+void G4minWE::RunAction::BeginOfRunAction(const G4Run*) {
 	//Open the output file
 	G4String fileName = "cube.root";
 	anaMgr->OpenFile(fileName);
 }
 
-void runAction::EndOfRunAction(const G4Run*) {
+void G4minWE::RunAction::EndOfRunAction(const G4Run*) {
 	//Write data to file
 	anaMgr->Write();
 	//Close file

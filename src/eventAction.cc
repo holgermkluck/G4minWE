@@ -17,15 +17,15 @@
  */
 
 #include "eventAction.hh"
-
+#include "hit.hh"
 #include "G4Event.hh"
 #include "G4SDManager.hh"
 #include "G4THitsMap.hh"
 #include "G4SystemOfUnits.hh"
 
-#include <map>
+#include <vector>
 
-void eventAction::EndOfEventAction(const G4Event* anEvent) {
+void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 	//After the current event is finished, process the "hits" recorded
 	//by the scorer "edep" of SD "cube" to get the energy deposited
 	//inside "cube"
@@ -42,36 +42,48 @@ void eventAction::EndOfEventAction(const G4Event* anEvent) {
 
 	//2)   Select the hit collection of scrorer "edep" of SD "cube"
 	//2.1) Get the ID of the scorer "edep" of SD "cube"
-	G4int id = G4SDManager::GetSDMpointer()->GetCollectionID("cube/edep");
+	G4int id = G4SDManager::GetSDMpointer()->GetCollectionID("cubeHC");
 	//2.2) With the ID select the HC
 	auto* hitCol = hce->GetHC(id);
-	//2.3) Cast the collection to a map
-	G4THitsMap<G4double>* hitMap = static_cast<G4THitsMap<G4double>*>(hitCol);
+	//2.3) Get a vector
+	auto* hitVec = static_cast<G4minWE::HitsCollection*>(hitCol)->GetVector();
 
-	//3)   Iterate over the entries in the map; the entries a pairs of <key, value>
-	//     we are interest in the value, i.e. the second element of a pair.
-	//     The value is the quantity measured by the scorer, i.e. for the "cube/edep"
-	//     it is the energy deposited inside the SD cube.
-	std::map<G4int,G4double*>::iterator itr;
-	for (itr = hitMap->GetMap()->begin(); itr != hitMap->GetMap()->end(); itr++){
+	//3)   Iterate over the entries in the vector; the entries a pairs a pointers
+	//     to hits
+	for (auto* hit : *hitVec){
 		//The iterator itr points to an pair, to get the second element, i.e.
 		//the value of the pair, do:
-		G4double eDep = *(itr->second);
+		G4double eDep = hit->GetEnergyDeposit();
+		const G4ThreeVector& pos = hit->GetPosition();
 		//If verbosity is at least 1, then print the energy to screen
 		if(evtMgr->GetVerboseLevel() >= 1){
 			//We want the energy in multiples of MeV, so divide it by MeV
-			G4cout << "Energy deposited in cube: " << eDep/MeV << " MeV\n";
+			G4cout << "Energy deposited in cube: " << eDep/MeV << " MeV\n"
+					<< " at position " << pos/mm << " mm" << G4endl;
 		}
 		//Fill energy into Ntuple and histogram
 		//(one has to know that "cube_Edep" histogram was the first
-		//created in runAction, i.e. that it has the ID=0)
+		//created in runAction, i.e. that it has the ID=0; similarly
+		//the IDs of posX, posY, posZ are 1, 2, 3, respectively)
 		anaMgr->FillH1(
 				0,     //ID of the histogram to fill
 				eDep   //Value to fill in the histogram
 				);
 		anaMgr->FillNtupleDColumn(
-				0,     //ID of the histogram to fill
-				eDep   //Value to fill in the histogram
+				0,     //ID of the column to fill
+				eDep   //Value to fill in the column
+				);
+		anaMgr->FillNtupleDColumn(
+				1,     //ID of the column to fill
+				pos.x()//Value to fill in the column
+				);
+		anaMgr->FillNtupleDColumn(
+				2,     //ID of the column to fill
+				pos.y()//Value to fill in the column
+				);
+		anaMgr->FillNtupleDColumn(
+				3,     //ID of the column to fill
+				pos.z()//Value to fill in the column
 				);
 		anaMgr->AddNtupleRow();
 

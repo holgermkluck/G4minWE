@@ -23,11 +23,12 @@
 class G4Run;
 class G4RootAnalysisManager;
 
-class runAction : public G4UserRunAction{
+namespace G4minWE{
+class RunAction : public G4UserRunAction{
 
 public:
-	runAction();
-	~runAction() override = default;
+	RunAction();
+	~RunAction() override = default;
 
 	void BeginOfRunAction(const G4Run*) override;
 	void   EndOfRunAction(const G4Run*) override;
@@ -36,5 +37,6 @@ private:
 	G4RootAnalysisManager* anaMgr{nullptr};
 
 };
+}
 
 #endif /* INCLUDE_RUNACTION_HH_ */

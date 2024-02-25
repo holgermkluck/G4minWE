@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Holger Kluck
- * This file eventAction.hh is part of G4minWE.
+ * This file sensitiveDetector.hh is part of G4minWE.
  *
  * G4minWE is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,27 +16,27 @@
  * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_EVENTACTION_HH_
-#define INCLUDE_EVENTACTION_HH_
+#ifndef INCLUDE_SENSITIVEDETECTOR_HH_
+#define INCLUDE_SENSITIVEDETECTOR_HH_
 
-#include "G4UserEventAction.hh"
-#include "G4EventManager.hh"
-#include "g4root.hh"
-class G4Event;
+#include "hit.hh"
+
+#include "G4VSensitiveDetector.hh"
 
 namespace G4minWE{
-class EventAction : public G4UserEventAction{
-
+class SensitiveDetector: public G4VSensitiveDetector {
 public:
-	EventAction() = default;
-	~EventAction() override = default;
+	SensitiveDetector(const G4String &name, const G4String &hitsCollectionName);
+	~SensitiveDetector() override = default;
 
-	void EndOfEventAction(const G4Event* anEvent) override;
+	// methods from base class
+	void Initialize(G4HCofThisEvent *hitCollection) override;
+	G4bool ProcessHits(G4Step *step, G4TouchableHistory *) override;
+	void EndOfEvent(G4HCofThisEvent *) override;
 
 private:
-	G4RootAnalysisManager* anaMgr{G4AnalysisManager::Instance()};
-	G4EventManager* evtMgr {G4EventManager::GetEventManager()};
+	HitsCollection *HCollection {nullptr};
 };
 }
 
-#endif /* INCLUDE_EVENTACTION_HH_ */
+#endif /* INCLUDE_SENSITIVEDETECTOR_HH_ */

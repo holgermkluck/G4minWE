@@ -17,15 +17,16 @@
  */
 
 #include "actionInitialiser.hh"
-#include "primaryParticleAction.hh"
-#include "eventAction.hh"
-#include "runAction.hh"
 
-void actionInitialiser::Build() const {
+#include "runAction.hh"
+#include "eventAction.hh"
+#include "primaryParticleAction.hh"
+
+void G4minWE::ActionInitialiser::Build() const {
 	//Set primary particle generator
-	SetUserAction(new primaryParticleAction);
+	SetUserAction(new G4minWE::PrimaryParticleAction);
 	//Set run action
-	SetUserAction(new runAction);
+	SetUserAction(new G4minWE::RunAction);
 	//Set event action
-	SetUserAction(new eventAction);
+	SetUserAction(new G4minWE::EventAction);
 }
