@@ -18,6 +18,8 @@
 
 #include "detectorConstruction.hh"
 
+#include "sensitiveDetector.hh"
+
 //To access predefined materials
 #include "G4NistManager.hh"
 //To define volumes
