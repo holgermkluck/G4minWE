@@ -18,6 +18,8 @@
 
 #include "detectorConstruction.hh"
 
+#include "sensitiveDetector.hh"
+
 //To access predefined materials
 #include "G4NistManager.hh"
 //To define volumes
@@ -27,11 +29,9 @@
 //To get physics units like meters
 #include "G4SystemOfUnits.hh"
 //To get detectors
-#include "G4MultiFunctionalDetector.hh"
 #include "G4SDManager.hh"
-#include "G4PSEnergyDeposit.hh"
 
-G4VPhysicalVolume* detectorConstruction::Construct() {
+G4VPhysicalVolume* G4minWE::DetectorConstruction::Construct() {
 	//Check for overlapping volumes?
 	G4bool checkOverlaps = false;
 
@@ -106,18 +106,14 @@ G4VPhysicalVolume* detectorConstruction::Construct() {
 	return worldVolume_physic;
 }
 
-void detectorConstruction::ConstructSDandField() {
+void G4minWE::DetectorConstruction::ConstructSDandField() {
 	//Define a "sensitive detector" (SD) that can register in
 	//principle several quantities
-	auto* detector = new G4MultiFunctionalDetector(
-			"cube"    //Name of SD
+	auto* detector = new G4minWE::SensitiveDetector(
+			"cube",     //Name of SD
+			"cube/hits"  //Name of hit collection
 			);
-	//Create a "scorer" the register deposited energy
-	auto* scorer = new G4PSEnergyDeposit(
-			"edep"            //Name of scorer
-			);
-	//Assign the scorer to the SD
-	detector->RegisterPrimitive(scorer);
+
 	//Assign the SD to the logical volume named "cube"
 	SetSensitiveDetector(
 			"cube",           //Name of logical volume

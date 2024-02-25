@@ -18,7 +18,6 @@
 
 #include "detectorConstruction.hh"
 #include "actionInitialiser.hh"
-
 #include "G4UIExecutive.hh"
 #include "G4RunManager.hh"
 #include "G4VisExecutive.hh"
@@ -55,11 +54,11 @@ int main(int argc, char **argv) {
 	/*-Setup run manager and user classes--------------------------------------*/
 	auto* runMgr = new G4RunManager;
 	//Set the detector construction
-	runMgr->SetUserInitialization(new detectorConstruction);
+	runMgr->SetUserInitialization(new G4minWE::DetectorConstruction);
 	//Set the physics list
 	runMgr->SetUserInitialization(new Shielding);
 	//Set user action initializer
-	runMgr->SetUserInitialization(new actionInitialiser);
+	runMgr->SetUserInitialization(new G4minWE::ActionInitialiser);
 
 	/*-Initialise visualisation manager----------------------------------------*/
 	G4VisManager* visMgr = new G4VisExecutive;

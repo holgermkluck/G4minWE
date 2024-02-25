@@ -17,7 +17,6 @@
  */
 
 #include "eventAction.hh"
-
 #include "G4Event.hh"
 #include "G4SDManager.hh"
 #include "G4THitsMap.hh"
@@ -25,7 +24,7 @@
 
 #include <map>
 
-void eventAction::EndOfEventAction(const G4Event* anEvent) {
+void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 	//After the current event is finished, process the "hits" recorded
 	//by the scorer "edep" of SD "cube" to get the energy deposited
 	//inside "cube"
@@ -42,7 +41,7 @@ void eventAction::EndOfEventAction(const G4Event* anEvent) {
 
 	//2)   Select the hit collection of scrorer "edep" of SD "cube"
 	//2.1) Get the ID of the scorer "edep" of SD "cube"
-	G4int id = G4SDManager::GetSDMpointer()->GetCollectionID("cube/edep");
+	G4int id = G4SDManager::GetSDMpointer()->GetCollectionID("cube/hits");
 	//2.2) With the ID select the HC
 	auto* hitCol = hce->GetHC(id);
 	//2.3) Cast the collection to a map
