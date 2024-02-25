@@ -31,6 +31,9 @@ G4minWE::RunAction::RunAction() {
 			);
 	//Create a column of doubles
 	anaMgr->CreateNtupleDColumn("Edep");
+	anaMgr->CreateNtupleDColumn("PosX");
+	anaMgr->CreateNtupleDColumn("PosY");
+	anaMgr->CreateNtupleDColumn("PosZ");
 	//Finalize the Ntuple
 	anaMgr->FinishNtuple();
 	//Create 1D histogram
