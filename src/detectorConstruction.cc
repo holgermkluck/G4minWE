@@ -111,7 +111,7 @@ void G4minWE::DetectorConstruction::ConstructSDandField() {
 	//principle several quantities
 	auto* detector = new G4minWE::SensitiveDetector(
 			"cube",     //Name of SD
-			"cube/hits"  //Name of hit collection
+			"cubeHC"    //Name of hit collection
 			);
 
 	//Assign the SD to the logical volume named "cube"

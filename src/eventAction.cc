@@ -42,16 +42,14 @@ void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 
 	//2)   Select the hit collection of scrorer "edep" of SD "cube"
 	//2.1) Get the ID of the scorer "edep" of SD "cube"
-	G4int id = G4SDManager::GetSDMpointer()->GetCollectionID("cube/hits");
+	G4int id = G4SDManager::GetSDMpointer()->GetCollectionID("cubeHC");
 	//2.2) With the ID select the HC
 	auto* hitCol = hce->GetHC(id);
-	//2.3) Cast the collection to a map
+	//2.3) Get a vector
 	auto* hitVec = static_cast<G4minWE::HitsCollection*>(hitCol)->GetVector();
 
-	//3)   Iterate over the entries in the map; the entries a pairs of <key, value>
-	//     we are interest in the value, i.e. the second element of a pair.
-	//     The value is the quantity measured by the scorer, i.e. for the "cube/edep"
-	//     it is the energy deposited inside the SD cube.
+	//3)   Iterate over the entries in the vector; the entries a pairs a pointers
+	//     to hits
 	for (auto* hit : *hitVec){
 		//The iterator itr points to an pair, to get the second element, i.e.
 		//the value of the pair, do:
