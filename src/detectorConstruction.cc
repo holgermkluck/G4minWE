@@ -27,7 +27,7 @@
 //To get physics units like meters
 #include "G4SystemOfUnits.hh"
 
-G4VPhysicalVolume* DetectorConstruction::Construct() {
+G4VPhysicalVolume* G4minWE::DetectorConstruction::Construct() {
 	//Check for overlapping volumes?
 	G4bool checkOverlaps = false;
 

@@ -22,6 +22,8 @@
 #include "G4VUserDetectorConstruction.hh"
 class G4VPhysicalVolume;
 
+namespace G4minWE {
+
 class DetectorConstruction : public G4VUserDetectorConstruction {
 public:
 
@@ -33,5 +35,6 @@ public:
 	//geometry of the setup to be simulated
 	G4VPhysicalVolume* Construct() override;
 };
+}
 
 #endif /* INCLUDE_DETECTORCONSTRUCTION_HH_ */
