@@ -16,8 +16,6 @@
  * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "detectorConstruction.hh"
-
 #include "G4UIExecutive.hh"
 #include "G4RunManager.hh"
 #include "G4VisExecutive.hh"
