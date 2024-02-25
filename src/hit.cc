@@ -21,16 +21,12 @@
 #include "G4VVisManager.hh"
 #include "G4Circle.hh"
 #include "G4VisAttributes.hh"
-#include "G4SystemOfUnits.hh"
+#include "G4UnitsTable.hh"
 
 #include <iostream>
 
 G4bool Hit::operator ==(const Hit &right) const {
 	return (this == &right) ? true : false;
-}
-
-void Hit::operator delete(void *hit) {
-	TrackerHitAllocator->FreeSingle((Hit*) hit);
 }
 
 void Hit::Draw() {

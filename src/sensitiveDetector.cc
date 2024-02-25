@@ -18,8 +18,9 @@
 
 #include "sensitiveDetector.hh"
 
-#include "hit.hh"
+//#include "hit.hh"
 #include "G4SDManager.hh"
+#include "G4HCofThisEvent.hh"
 #include <cstddef>
 
 SensitiveDetector::SensitiveDetector(const G4String &name,
@@ -29,8 +30,7 @@ SensitiveDetector::SensitiveDetector(const G4String &name,
 }
 
 void SensitiveDetector::Initialize(G4HCofThisEvent *hitCollection) {
-	HCollection = new HitsCollection(SensitiveDetectorName,
-			collectionName[0]);
+	HCollection = new HitsCollection(SensitiveDetectorName, collectionName[0]);
 
 	//Add this collection to hce
 	G4int hcID = G4SDManager::GetSDMpointer()->GetCollectionID(
@@ -39,8 +39,7 @@ void SensitiveDetector::Initialize(G4HCofThisEvent *hitCollection) {
 
 }
 
-G4bool SensitiveDetector::ProcessHits(G4Step *step,
-		G4TouchableHistory *history) {
+G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory*) {
 	//Get energy deposit by current hit
 	G4double edep = step->GetTotalEnergyDeposit();
 	//If no energy is deposit, nothing to do
@@ -48,7 +47,7 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step,
 		return false;
 	}
 	//Otherwise create a new hit
-	auto newHit = new Hit();
+	Hit *newHit = new Hit();
 	//And set the data
 	newHit->SetEnergyDeposit(edep);
 	newHit->SetPosition(step->GetPostStepPoint()->GetPosition());
@@ -58,11 +57,11 @@ G4bool SensitiveDetector::ProcessHits(G4Step *step,
 	return true;
 }
 
-void SensitiveDetector::EndOfEvent(G4HCofThisEvent *hitCollection) {
+void SensitiveDetector::EndOfEvent(G4HCofThisEvent*) {
 	if (verboseLevel > 1) {
 		std::size_t nbHits = HCollection->entries();
 		G4cout << "\n" << "-------->Hits Collection: in this event they are "
-				<< nbHits << " hits in the tracker chambers: " << G4endl;
+				<< nbHits << " hits: " << G4endl;
 		for (std::size_t i = 0; i < nbHits; ++i) {
 			(*HCollection)[i]->Print();
 		}

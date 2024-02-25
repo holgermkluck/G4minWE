@@ -62,4 +62,8 @@ inline void* Hit::operator new(size_t) {
 	return (void*) TrackerHitAllocator->MallocSingle();
 }
 
+inline void Hit::operator delete(void *hit) {
+	TrackerHitAllocator->FreeSingle((Hit*) hit);
+}
+
 #endif /* INCLUDE_HIT_HH_ */
