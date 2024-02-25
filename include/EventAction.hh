@@ -23,11 +23,11 @@
 #include "G4EventManager.hh"
 class G4Event;
 
-class eventAction : public G4UserEventAction{
+class EventAction : public G4UserEventAction{
 
 public:
-	eventAction() = default;
-	~eventAction() override = default;
+	EventAction() = default;
+	~EventAction() override = default;
 
 	void EndOfEventAction(const G4Event* anEvent) override;
 

@@ -16,7 +16,7 @@
  * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "eventAction.hh"
+#include "../include/EventAction.hh"
 
 #include "G4Event.hh"
 #include "G4SDManager.hh"
@@ -26,7 +26,7 @@
 #include <map>
 
 
-void eventAction::EndOfEventAction(const G4Event* anEvent) {
+void EventAction::EndOfEventAction(const G4Event* anEvent) {
 	//After the current event is finished, process the "hits" recorded
 	//by the scorer "edep" of SD "cube" to get the energy deposited
 	//inside "cube"
