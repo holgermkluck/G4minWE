@@ -25,11 +25,11 @@
 
 #include <iostream>
 
-G4bool Hit::operator ==(const Hit &right) const {
+G4bool G4minWE::Hit::operator ==(const Hit &right) const {
 	return (this == &right) ? true : false;
 }
 
-void Hit::Draw() {
+void G4minWE::Hit::Draw() {
 	auto *pVVisManager = G4VVisManager::GetConcreteInstance();
 	if (pVVisManager) {
 		G4Circle circle(Position);
@@ -41,7 +41,7 @@ void Hit::Draw() {
 	}
 }
 
-void Hit::Print() {
+void G4minWE::Hit::Print() {
 	G4cout
 	<< " Edep: " << std::setw(7) << G4BestUnit(EnergyDeposit, "Energy")
 	<< " Position: " << std::setw(7) << G4BestUnit(Position, "Length")
@@ -49,19 +49,19 @@ void Hit::Print() {
 
 }
 
-void Hit::SetEnergDeposit(G4double edep) {
+void G4minWE::Hit::SetEnergDeposit(G4double edep) {
 	EnergyDeposit = edep;
 }
 
-void Hit::SetPosition(const G4ThreeVector &pos) {
+void G4minWE::Hit::SetPosition(const G4ThreeVector &pos) {
 	Position = pos;
 }
 
-G4double Hit::GetEnergyDeposit() const {
+G4double G4minWE::Hit::GetEnergyDeposit() const {
 	return EnergyDeposit;
 }
 
-G4ThreeVector Hit::GetPosition() const {
+G4ThreeVector G4minWE::Hit::GetPosition() const {
 	return Position;
 }
 
