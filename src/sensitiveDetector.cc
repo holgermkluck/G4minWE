@@ -23,13 +23,13 @@
 #include "G4HCofThisEvent.hh"
 #include <cstddef>
 
-SensitiveDetector::SensitiveDetector(const G4String &name,
+G4minWE::SensitiveDetector::SensitiveDetector(const G4String &name,
 		const G4String &hitsCollectionName) :
 		G4VSensitiveDetector(name) {
 	collectionName.insert(hitsCollectionName);
 }
 
-void SensitiveDetector::Initialize(G4HCofThisEvent *hitCollection) {
+void G4minWE::SensitiveDetector::Initialize(G4HCofThisEvent *hitCollection) {
 	HCollection = new HitsCollection(SensitiveDetectorName, collectionName[0]);
 
 	//Add this collection to hce
@@ -39,7 +39,7 @@ void SensitiveDetector::Initialize(G4HCofThisEvent *hitCollection) {
 
 }
 
-G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory*) {
+G4bool G4minWE::SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory*) {
 	//Get energy deposit by current hit
 	G4double edep = step->GetTotalEnergyDeposit();
 	//If no energy is deposit, nothing to do

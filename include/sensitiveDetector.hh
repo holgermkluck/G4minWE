@@ -23,6 +23,7 @@
 
 #include "G4VSensitiveDetector.hh"
 
+namespace G4minWE{
 class SensitiveDetector: public G4VSensitiveDetector {
 public:
 	SensitiveDetector(const G4String &name, const G4String &hitsCollectionName);
@@ -36,5 +37,6 @@ public:
 private:
 	HitsCollection *HCollection {nullptr};
 };
+}
 
 #endif /* INCLUDE_SENSITIVEDETECTOR_HH_ */
