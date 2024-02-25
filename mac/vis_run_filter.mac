@@ -1,0 +1,96 @@
+# Copyright 2024 Holger Kluck
+# This file vis_run.mac is part of G4minWE.
+#
+# G4minWE is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# G4minWE is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
+ 
+#Initialse Geant4
+/run/initialize
+
+#Use OpenGL visualiser with 600 pixel x 600 pixel window size
+#/vis/open OGL 600x600-0+0
+
+#Or create a HepRepXML file containing the visualisation
+#view it with JAS3
+/vis/open HepRepXML
+
+#Visualiser should report errors
+/vis/verbose errors
+
+#Draw the geometry
+/vis/drawVolume
+
+#View on the scene from top
+/vis/viewer/set/viewpointVector -1 0 0
+
+#Draw the scene as wireframe
+/vis/viewer/set/style wireframe
+/vis/viewer/set/auxiliaryEdge true
+#Increase number of sampling points for circles
+/vis/viewer/set/lineSegmentsPerCircle 100
+
+#Add a axes cross which length of each axes of 1 m
+/vis/scene/add/axes 0 0 0 1 m
+
+#For file-based drivers, use this to create an empty detector view:
+#/vis/viewer/flush
+
+#Draw particle trajectories
+/vis/scene/add/trajectories smooth
+#Accumulate the trajectories; by default only the trajectory of the
+#current event is drawn
+/vis/scene/endOfEventAction accumulate
+
+#Increase verbosity
+/control/verbose 1
+/run/verbose 1
+/event/verbose 0
+/tracking/verbose 0
+
+#Chose a gamma of 6 MeV as primar particle
+/gps/particle ion
+#Radium emanation = 222Rn
+#see https://en.wikipedia.org/wiki/Radon
+/gps/ion 86 222
+/gps/pos/type Point
+#z-position in absolute world coordiantes
+#The vessel center coincide with the origin of coordinates
+#+0.3/2 #Displacement of vaccum center with respect to vessel center
+#-3.5/2 #Distance from vacuum center to bottom of vaccum
+#+0.8   #Distacne from bottom of vaccum to bottom of foil
+#+1.5/2 #Distacne from bottom of foil to center of foil
+#As center for foil is align with source -> z-coordinate of source
+#Given in units of 1.2cm
+#->z=-0.05*1.2cm=-0.06cm
+#Distance between center of vessel and source is one unit=1.2cm
+/gps/pos/centre 1.1 0.0 -0.06 cm
+#Isotropic
+/gps/ang/type iso
+#Nuclei at rest
+/gps/energy 0 MeV
+
+#Select electron neutrinos
+/vis/filtering/trajectories/create/particleFilter
+/vis/filtering/trajectories/particleFilter-0/add anti_nu_e
+#and remove them
+/vis/filtering/trajectories/particleFilter-0/invert true
+#Same for electrons and gammas
+/vis/filtering/trajectories/create/particleFilter
+/vis/filtering/trajectories/particleFilter-1/add e-
+/vis/filtering/trajectories/particleFilter-1/invert true
+/vis/filtering/trajectories/create/particleFilter
+/vis/filtering/trajectories/particleFilter-2/add gamma
+/vis/filtering/trajectories/particleFilter-2/invert true
+
+#Simulate 2 events, one primary particle per event
+/run/beamOn 2000
