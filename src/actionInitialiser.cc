@@ -26,7 +26,7 @@ void G4minWE::ActionInitialiser::Build() const {
 	//Set primary particle generator
 	SetUserAction(new G4minWE::PrimaryParticleAction);
 	//Set run action
-	SetUserAction(new RunAction);
+	SetUserAction(new G4minWE::RunAction);
 	//Set event action
 	SetUserAction(new G4minWE::EventAction);
 }

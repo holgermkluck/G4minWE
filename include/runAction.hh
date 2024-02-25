@@ -23,6 +23,7 @@
 class G4Run;
 class G4RootAnalysisManager;
 
+namespace G4minWE{
 class RunAction : public G4UserRunAction{
 
 public:
@@ -36,5 +37,6 @@ private:
 	G4RootAnalysisManager* anaMgr{nullptr};
 
 };
+}
 
 #endif /* INCLUDE_RUNACTION_HH_ */

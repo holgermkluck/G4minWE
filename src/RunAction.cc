@@ -20,7 +20,7 @@
 #include "g4root.hh"
 #include "G4SystemOfUnits.hh"
 
-RunAction::RunAction() {
+G4minWE::RunAction::RunAction() {
 	//Get instance of the analysis manager, because we include
 	//g4root.hh we will get a G4RootAnalysisManager
 	anaMgr = G4AnalysisManager::Instance();
@@ -43,13 +43,13 @@ RunAction::RunAction() {
 			);
 }
 
-void RunAction::BeginOfRunAction(const G4Run*) {
+void G4minWE::RunAction::BeginOfRunAction(const G4Run*) {
 	//Open the output file
 	G4String fileName = "cube.root";
 	anaMgr->OpenFile(fileName);
 }
 
-void RunAction::EndOfRunAction(const G4Run*) {
+void G4minWE::RunAction::EndOfRunAction(const G4Run*) {
 	//Write data to file
 	anaMgr->Write();
 	//Close file
