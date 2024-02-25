@@ -57,7 +57,7 @@ G4bool G4minWE::SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory*
 	return true;
 }
 
-void SensitiveDetector::EndOfEvent(G4HCofThisEvent*) {
+void G4minWE::SensitiveDetector::EndOfEvent(G4HCofThisEvent*) {
 	if (verboseLevel > 1) {
 		std::size_t nbHits = HCollection->entries();
 		G4cout << "\n" << "-------->Hits Collection: in this event they are "
