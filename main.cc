@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
 	/*-Setup run manager and user classes--------------------------------------*/
 	auto* runMgr = new G4RunManager;
 	//Set the detector construction
-	runMgr->SetUserInitialization(new detectorConstruction);
+	runMgr->SetUserInitialization(new G4minWE::DetectorConstruction);
 	//Set the physics list
 	runMgr->SetUserInitialization(new Shielding);
 	//Set primary particle generator

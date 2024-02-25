@@ -22,16 +22,19 @@
 #include "G4VUserDetectorConstruction.hh"
 class G4VPhysicalVolume;
 
-class detectorConstruction : public G4VUserDetectorConstruction {
+namespace G4minWE {
+
+class DetectorConstruction : public G4VUserDetectorConstruction {
 public:
 
 	//Let C++ define default constructor and destrcutor
-	detectorConstruction() = default;
-	~detectorConstruction() override = default;
+	DetectorConstruction() = default;
+	~DetectorConstruction() override = default;
 
 	//This method is needed; it will assemble the actual
 	//geometry of the setup to be simulated
 	G4VPhysicalVolume* Construct() override;
 };
+}
 
 #endif /* INCLUDE_DETECTORCONSTRUCTION_HH_ */
