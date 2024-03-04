@@ -2,7 +2,7 @@
 
 To demonstrate the development from the most basic code to slightly elaborated code, this repository features certain _development stages_ as dedicated branches:
   - **stage_0** the code consists just of a main file and the CMake files needed to compile it. The produced binary can be executed but does not make anything.
-  - **stage_1** a detectorConstruction is added with constructs an air-filled world volume.
+  - **stage_1** a detectorConstruction is added which constructs an air-filled world volume and a PMMA cube.
   - **stage_2** a simple primary particle generator is add.
   - **stage_3** define a Sensitive Detector and access the hit information via an event action class.
   - **stage_4** fill the data from stage_3 into a Ntuple and histogram, and store it in a ROOT file
@@ -42,7 +42,7 @@ If further information or support is needed, one may contact the maintainers of 
 
 ## Acknowledgement
 
-G4minWE is based on [Geant4](https://geant4.cern.ch):
+G4minWE makes use of [Geant4](https://geant4.cern.ch):
 
 >J. Allison et al., Nucl. Instrum. Methods. Phys. Res. A835 (2016) 186-225, [DOI:10.1016/j.nima.2016.06.125](https://doi.org/10.1016/j.nima.2016.06.125)
 
