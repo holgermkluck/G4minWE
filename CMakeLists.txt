@@ -72,9 +72,6 @@ target_link_libraries(${PROJECT_NAME} ${Geant4_LIBRARIES})
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 
-# Install the headers to the 'include' directory under CMAKE_INSTALL_PREFIX
-install(DIRECTORY "${CMAKE_SOURCE_DIR}/include/" DESTINATION include)
-
 # Install documentation like files to the default GNU doc directory
 install(FILES ${CMAKE_SOURCE_DIR}/LICENSE.md
               DESTINATION ${CMAKE_INSTALL_DOCDIR})
