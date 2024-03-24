@@ -171,10 +171,10 @@ G4VPhysicalVolume* G4minWE::DetectorConstruction::Construct() {
 	//https://en.wikipedia.org/wiki/Zinc_sulfide
 	G4Material* matZnS = new G4Material("ZnS", 4.090 * g / cm3, 2, kStateSolid, 293.15 * kelvin, 1. * bar);
 	//https://en.wikipedia.org/wiki/Zinc
-	G4Element *elZn = new G4Element("Zinc", "Zn", 30., 65.38 * g / mole);
+	G4Element *elZn = nistMgr->FindOrBuildElement("Zn");
 	matZnS->AddElement(elZn, 1);
 	//https://en.wikipedia.org/wiki/Sulfur
-	G4Element *elS = new G4Element("Sulfur", "S", 16., 32.06 * g / mole);
+	G4Element *elS = nistMgr->FindOrBuildElement("S");
 	matZnS->AddElement(elS, 1);
 	auto* screen_logic = new G4LogicalVolume(screen_solid, matZnS, "screen");
 	//Assume that the screen is centered on the foil along the z-axis (distance relative to bottom of vessel)
