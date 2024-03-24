@@ -115,8 +115,8 @@ G4VPhysicalVolume* G4minWE::DetectorConstruction::Construct() {
 	//The gold foil
 	G4double foilLength = 1.5*scale;
 	//In their 1913 paper, they used two Au foils, see p.609: "equivalent to
-	//0.1cm air" and 0.3cm air.Chose the first value: 0.1cm air.
-	//To calculate the absolute thickness, assume that the column densities of
+	//0.1cm air" and 0.3cm air. Chose the first value: 0.1cm air.
+	//To calculate the absolute thickness, assume that the column density of the
 	//gold foil has to match the column density of an 0.1cm long air column:
 	//t_Au*rho_Au = 0.1cm*rho_Air -> t_Au = 0.1cm*(rho_Air/rho_Au)
 	//Acc. to wikipedia [https://en.wikipedia.org/wiki/Density_of_air]
