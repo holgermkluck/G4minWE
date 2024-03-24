@@ -86,7 +86,7 @@ G4VPhysicalVolume* G4minWE::DetectorConstruction::Construct() {
 	//Give all dimensions of the apparatus relative to the source-foil distance; it is
 	//the only absolute dimension given in the paper on p.608:
 	//"In some experiments the distance between the source and scattering foil was 2.5cm"
-	G4double scale = 1.2*cm;
+	G4double scale = 2.5*cm;
 
 	//The vessel
 	G4double wallThickness = 0.3*scale;
