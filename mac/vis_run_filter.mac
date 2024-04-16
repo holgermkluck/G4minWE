@@ -73,7 +73,7 @@
 #Given in units of 1.2cm
 #->z=-0.05*1.2cm=-0.06cm
 #Distance between center of vessel and source is one unit=1.2cm
-/gps/pos/centre 1.1 0.0 -0.06 cm
+/gps/pos/centre 2.4 0.0 -0.125 cm
 #Isotropic
 /gps/ang/type iso
 #Nuclei at rest
