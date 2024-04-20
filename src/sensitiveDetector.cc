@@ -46,6 +46,11 @@ G4bool G4minWE::SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory*
 	if (edep == 0.) {
 		return false;
 	}
+	//Create a hit only if caused by an alpha particle
+	const auto& particleName = step->GetTrack()->GetParticleDefinition()->GetParticleName();
+	if(particleName != "alpha"){
+		return false;
+	}
 	//Otherwise create a new hit
 	auto *newHit = new G4minWE::Hit();
 	//And set the data

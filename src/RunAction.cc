@@ -34,9 +34,6 @@ G4minWE::RunAction::RunAction() {
 	anaMgr->CreateNtupleDColumn("PosX");
 	anaMgr->CreateNtupleDColumn("PosY");
 	anaMgr->CreateNtupleDColumn("PosZ");
-	anaMgr->CreateNtupleDColumn("DirX");
-	anaMgr->CreateNtupleDColumn("DirY");
-	anaMgr->CreateNtupleDColumn("DirZ");
 	//Finalize the Ntuple
 	anaMgr->FinishNtuple();
 	//Create 1D histogram
@@ -45,7 +42,7 @@ G4minWE::RunAction::RunAction() {
 			"Energy deposition in ZnS screen", //Title of the histogram
 			1000,                              //1000 bins ...
 			0.,                                //between 0 ...
-			100.*keV                           //and 100 keV
+			10.*MeV                            //and 10 MeV
 			);
 }
 

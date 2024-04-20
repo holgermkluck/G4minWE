@@ -50,6 +50,9 @@ void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 
 	//3)   Iterate over the entries in the vector; the entries a pairs a pointers
 	//     to hits
+	//     Calculate the sum energy deposit and the average position of the hits
+	G4double sumEDep = 0.;
+	G4ThreeVector avgPos;
 	for (auto* hit : *hitVec){
 		//The iterator itr points to an pair, to get the second element, i.e.
 		//the value of the pair, do:
@@ -63,43 +66,35 @@ void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 					<< " at position " << pos/mm << " mm\n"
 					<< " with direction " << dir << G4endl;
 		}
-		//Fill energy into Ntuple and histogram
-		//(one has to know that "cube_Edep" histogram was the first
-		//created in runAction, i.e. that it has the ID=0; similarly
-		//the IDs of posX, posY, posZ are 1, 2, 3, respectively)
-		anaMgr->FillH1(
-				0,     //ID of the histogram to fill
-				eDep   //Value to fill in the histogram
-				);
-		anaMgr->FillNtupleDColumn(
-				0,     //ID of the column to fill
-				eDep   //Value to fill in the column
-				);
-		anaMgr->FillNtupleDColumn(
-				1,     //ID of the column to fill
-				pos.x()//Value to fill in the column
-				);
-		anaMgr->FillNtupleDColumn(
-				2,     //ID of the column to fill
-				pos.y()//Value to fill in the column
-				);
-		anaMgr->FillNtupleDColumn(
-				3,     //ID of the column to fill
-				pos.z()//Value to fill in the column
-				);
-		anaMgr->FillNtupleDColumn(
-				4,     //ID of the column to fill
-				dir.x()//Value to fill in the column
-				);
-		anaMgr->FillNtupleDColumn(
-				5,     //ID of the column to fill
-				dir.y()//Value to fill in the column
-				);
-		anaMgr->FillNtupleDColumn(
-				6,     //ID of the column to fill
-				dir.z()//Value to fill in the column
-				);
-		anaMgr->AddNtupleRow();
+		sumEDep += eDep;
+		avgPos += pos;
 	}
+	//Divide sum position by number of hits to get average position
+	avgPos /= hitVec->size();
+	//Fill energy into Ntuple and histogram
+	//(one has to know that "cube_Edep" histogram was the first
+	//created in runAction, i.e. that it has the ID=0; similarly
+	//the IDs of posX, posY, posZ are 1, 2, 3, respectively)
+	anaMgr->FillH1(
+			0,           //ID of the histogram to fill
+			sumEDep/MeV  //Value in MeV to fill in the histogram
+			);
+	anaMgr->FillNtupleDColumn(
+			0,           //ID of the column to fill
+			sumEDep/MeV  //Value in MeV to fill in the column
+			);
+	anaMgr->FillNtupleDColumn(
+			1,            //ID of the column to fill
+			avgPos.x()/mm //Value in mm to fill in the column
+			);
+	anaMgr->FillNtupleDColumn(
+			2,            //ID of the column to fill
+			avgPos.y()/mm //Value in mm to fill in the column
+			);
+	anaMgr->FillNtupleDColumn(
+			3,            //ID of the column to fill
+			avgPos.z()/mm //Value in mm to fill in the column
+			);
+	anaMgr->AddNtupleRow();
 }
 
