@@ -95,6 +95,10 @@ void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 			3,            //ID of the column to fill
 			avgPos.z()/mm //Value in mm to fill in the column
 			);
+	anaMgr->FillNtupleIColumn(
+			4,             //ID of the column to fill
+			hitVec->size() //Value in mm to fill in the column
+			);
 	anaMgr->AddNtupleRow();
 }
 

@@ -34,6 +34,7 @@ G4minWE::RunAction::RunAction() {
 	anaMgr->CreateNtupleDColumn("PosX");
 	anaMgr->CreateNtupleDColumn("PosY");
 	anaMgr->CreateNtupleDColumn("PosZ");
+	anaMgr->CreateNtupleIColumn("Nhits");
 	//Finalize the Ntuple
 	anaMgr->FinishNtuple();
 	//Create 1D histogram
