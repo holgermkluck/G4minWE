@@ -124,7 +124,7 @@ G4VPhysicalVolume* G4minWE::DetectorConstruction::Construct() {
 	//Acc. to wikipedia [https://en.wikipedia.org/wiki/Gold]
 	//                   rho_Au=19.3g/cm³
 	//Absolute thickness of the foil: 0.1cm*((1.204e-3 g/cm³)/(19.3 g/cm³))~62nm
-	G4double foilThickness = 62*nm;
+	G4double foilThickness = 1*um;
 	G4double distBottomFoil = 0.8*scale;
 	auto* foil_solid = new G4Box("foil", foilThickness/2., foilLength/2., foilLength/2.);
 	G4Material* matFoil = nistMgr->FindOrBuildMaterial("G4_Au");
