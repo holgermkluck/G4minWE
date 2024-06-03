@@ -26,29 +26,32 @@ G4minWE::RunAction::RunAction() {
 	anaMgr = G4AnalysisManager::Instance();
 	//Create Ntuple
 	anaMgr->CreateNtuple(
-			"cube",              //Name of the Ntuple
-			"Data from cube SD"  //Description of the Ntuple
+			"pixel",                  //Name of the Ntuple
+			"Data from pixel matrix"  //Description of the Ntuple
 			);
 	//Create a column of doubles
 	anaMgr->CreateNtupleDColumn("Edep");
-	anaMgr->CreateNtupleDColumn("PosX");
-	anaMgr->CreateNtupleDColumn("PosY");
-	anaMgr->CreateNtupleDColumn("PosZ");
+	anaMgr->CreateNtupleDColumn("PixX");
+	anaMgr->CreateNtupleDColumn("PixY");
+	anaMgr->CreateNtupleDColumn("EventID");
 	//Finalize the Ntuple
 	anaMgr->FinishNtuple();
 	//Create 1D histogram
-	anaMgr->CreateH1(
-			"cube_Edep",                    //Name of the histogram
-			"Energy deposition in cube CS", //Title of the histogram
-			1000,                           //1000 bins ...
+	anaMgr->CreateH2(
+			"pixel_map",                    //Name of the histogram
+			"Energy deposition in pixels",  //Title of the histogram
+			160,                            //Along x:axis 160 bins ...
 			0.,                             //between 0 ...
-			100.*keV                        //and 100 keV
+			160,                            //and 160 -> one bin per pixel
+			160,                            //Same for y-axis
+			0,
+			160
 			);
 }
 
 void G4minWE::RunAction::BeginOfRunAction(const G4Run*) {
 	//Open the output file
-	G4String fileName = "cube.root";
+	G4String fileName = "pixel.root";
 	anaMgr->OpenFile(fileName);
 }
 

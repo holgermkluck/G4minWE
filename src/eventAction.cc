@@ -40,9 +40,9 @@ void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 		return;
 	}
 
-	//2)   Select the hit collection of scrorer "edep" of SD "cube"
-	//2.1) Get the ID of the scorer "edep" of SD "cube"
-	G4int id = G4SDManager::GetSDMpointer()->GetCollectionID("cubeHC");
+	//2)   Select the hit collection of sensitive detector "pixelHC" of SD "pixel"
+	//2.1) Get the ID of the hit collection "pixelHC"
+	G4int id = G4SDManager::GetSDMpointer()->GetCollectionID("pixelHC");
 	//2.2) With the ID select the HC
 	auto* hitCol = hce->GetHC(id);
 	//2.3) Get a vector
@@ -51,23 +51,27 @@ void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 	//3)   Iterate over the entries in the vector; the entries a pairs a pointers
 	//     to hits
 	for (auto* hit : *hitVec){
-		//The iterator itr points to an pair, to get the second element, i.e.
-		//the value of the pair, do:
+		//Get the data from the hit
 		G4double eDep = hit->GetEnergyDeposit();
-		const G4ThreeVector& pos = hit->GetPosition();
+		G4int pix_x = hit->GetPixelX();
+		G4int pix_y = hit->GetPixelY();
+		G4int eventID = anEvent->GetEventID();
 		//If verbosity is at least 1, then print the energy to screen
 		if(evtMgr->GetVerboseLevel() >= 1){
 			//We want the energy in multiples of MeV, so divide it by MeV
-			G4cout << "Energy deposited in cube: " << eDep/MeV << " MeV\n"
-					<< " at position " << pos/mm << " mm" << G4endl;
+			G4cout << "Energy deposited in pixel(" <<
+			 pix_x << " | " << pix_y << "): " << eDep/MeV << " MeV" << G4endl;
 		}
 		//Fill energy into Ntuple and histogram
-		//(one has to know that "cube_Edep" histogram was the first
+		//(one has to know that "pixel_map" histogram was the first
 		//created in runAction, i.e. that it has the ID=0; similarly
-		//the IDs of posX, posY, posZ are 1, 2, 3, respectively)
-		anaMgr->FillH1(
+		//the IDs of the columns Edep, PixX, PixY, EventID are 
+		//0, 1, 2, 3, respectively)
+		anaMgr->FillH2(
 				0,     //ID of the histogram to fill
-				eDep   //Value to fill in the histogram
+				pix_x, //x-coordinate of the bin
+				pix_y, //y-coordinate of the bin
+				eDep   //Bin value
 				);
 		anaMgr->FillNtupleDColumn(
 				0,     //ID of the column to fill
@@ -75,19 +79,18 @@ void G4minWE::EventAction::EndOfEventAction(const G4Event* anEvent) {
 				);
 		anaMgr->FillNtupleDColumn(
 				1,     //ID of the column to fill
-				pos.x()//Value to fill in the column
+				pix_x  //Value to fill in the column
 				);
 		anaMgr->FillNtupleDColumn(
 				2,     //ID of the column to fill
-				pos.y()//Value to fill in the column
+				pix_y  //Value to fill in the column
 				);
 		anaMgr->FillNtupleDColumn(
-				3,     //ID of the column to fill
-				pos.z()//Value to fill in the column
+				3,      //ID of the column to fill
+				eventID //Value to fill in the column
 				);
 		anaMgr->AddNtupleRow();
 
 	}
 
 }
-

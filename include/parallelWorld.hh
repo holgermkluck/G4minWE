@@ -26,9 +26,8 @@ namespace G4minWE {
 
 class ParallelWorld : public G4VUserParallelWorld {
 public:
-
-	//Let C++ define default constructor and destrcutor
 	ParallelWorld(G4String name);
+    //Let C++ define default destrcutor
 	~ParallelWorld() override = default;
 
 	//This method is needed; it will assemble the actual
