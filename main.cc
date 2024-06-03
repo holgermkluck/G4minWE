@@ -17,6 +17,7 @@
  */
 
 #include "detectorConstruction.hh"
+#include "parallelWorld.hh"
 #include "actionInitialiser.hh"
 #include "G4UIExecutive.hh"
 #include "G4RunManager.hh"
@@ -24,6 +25,7 @@
 #include "G4UImanager.hh"
 #include "G4ios.hh"
 #include "Shielding.hh"
+#include "G4ParallelWorldPhysics.hh"
 
 int main(int argc, char **argv) {
 	/*-Info printout-----------------------------------------------------------*/
@@ -53,10 +55,17 @@ int main(int argc, char **argv) {
 
 	/*-Setup run manager and user classes--------------------------------------*/
 	auto* runMgr = new G4RunManager;
+	//Set the parallel world
+	G4String paraWorldName = "myParallelWorld";
+	auto* paraWorld = new G4minWE::ParallelWorld(paraWorldName);
 	//Set the detector construction
-	runMgr->SetUserInitialization(new G4minWE::DetectorConstruction);
+	auto* geometry = new G4minWE::DetectorConstruction;
+	geometry->RegisterParallelWorld(paraWorld);
+	runMgr->SetUserInitialization(geometry);
 	//Set the physics list
-	runMgr->SetUserInitialization(new Shielding);
+	auto* physList = new Shielding;
+	physList->RegisterPhysics(new G4ParallelWorldPhysics(paraWorldName));
+	runMgr->SetUserInitialization(physList);
 	//Set user action initializer
 	runMgr->SetUserInitialization(new G4minWE::ActionInitialiser);
 
