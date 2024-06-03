@@ -17,6 +17,7 @@
  */
 
 #include "parallelWorld.hh"
+#include "sensitiveDetector.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
@@ -24,6 +25,7 @@
 #include "G4Box.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4ThreeVector.hh"
+#include "G4SDManager.hh"
 
 G4minWE::ParallelWorld::ParallelWorld(G4String name) : G4VUserParallelWorld(name){    
 }
@@ -58,7 +60,14 @@ void G4minWE::ParallelWorld::Construct(){
     //Fill the matrix with "rows" along the y-axis    
     auto* row_solid = new G4Box("row", (rep_x*pix_x)/2., pix_y/2., pix_z/2.);
     auto* row_logic = new G4LogicalVolume(row_solid, nullptr, "row");
-    new G4PVReplica("row_rep", row_logic, matrix_logic, kYAxis, rep_y, pix_y);
+    new G4PVReplica(
+        "row_rep",     //Name of the rpelication
+        row_logic,     //Logical volume that should be replicated
+        matrix_logic,  //Logical volume that should be filled with replicated
+        kYAxis,        //Along which axis the replication should happen
+        rep_y,         //Number of replications
+        pix_y          //Thickness of one replicate
+        );
 
     //Fill the rows with pixels along the x-axis
     auto* pixel_solid = new G4Box("pixel", pix_x/2., pix_y/2., pix_z/2);
@@ -67,5 +76,17 @@ void G4minWE::ParallelWorld::Construct(){
 }
 
 void G4minWE::ParallelWorld::ConstructSD(){
+	//Define a "sensitive detector" (SD)
+	auto* detector = new G4minWE::SensitiveDetector(
+			"pixel",     //Name of SD
+			"pixelHC"    //Name of hit collection
+			);
 
+	//Assign the SD to the logical volume named "pixel"
+	SetSensitiveDetector(
+			"pixel",          //Name of logical volume
+			detector          //Pointer to SD
+			);
+	//Add the SD to the SD manager
+	G4SDManager::GetSDMpointer()->AddNewDetector(detector);
 }
