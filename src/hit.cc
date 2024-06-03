@@ -59,6 +59,11 @@ void G4minWE::Hit::SetPosition(const G4ThreeVector &pos) {
 	Position = pos;
 }
 
+void G4minWE::Hit::SetPixel(G4int pix_x, G4int pix_y){
+	PixelX = pix_x;
+	PixelY = pix_y;
+}
+
 G4double G4minWE::Hit::GetEnergyDeposit() const {
 	return EnergyDeposit;
 }
@@ -67,3 +72,10 @@ G4ThreeVector G4minWE::Hit::GetPosition() const {
 	return Position;
 }
 
+G4int G4minWE::Hit::GetPixelX() const{
+	return PixelX;
+}
+
+G4int G4minWE::Hit::GetPixelY() const{
+	return PixelY;
+}

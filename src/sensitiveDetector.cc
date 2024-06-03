@@ -21,6 +21,7 @@
 //#include "hit.hh"
 #include "G4SDManager.hh"
 #include "G4HCofThisEvent.hh"
+#include "G4TouchableHistory.hh"
 #include <cstddef>
 
 G4minWE::SensitiveDetector::SensitiveDetector(const G4String &name,
@@ -46,10 +47,17 @@ G4bool G4minWE::SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory*
 	if (edep == 0.) {
 		return false;
 	}
+	//Get touchable history
+	const auto* history = dynamic_cast<const G4TouchableHistory*>(step->GetPreStepPoint()->GetTouchable());
+	//Current volume is the pixel which is repeated along the x-axis
+	G4int pix_x = history->GetVolume(0)->GetCopyNo();
+	//Each pixel belongs to a row that is repeated along the y-axis
+	G4int pix_y = history->GetVolume(1)->GetCopyNo();
 	//Otherwise create a new hit
 	auto *newHit = new G4minWE::Hit();
 	//And set the data
 	newHit->SetEnergDeposit(edep);
+	newHit->SetPixel(pix_x, pix_y);
 	newHit->SetPosition(step->GetPostStepPoint()->GetPosition());
 
 	HCollection->insert(newHit);

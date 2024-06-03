@@ -43,13 +43,18 @@ public:
 
 	void SetEnergDeposit(G4double edep);
 	void SetPosition(const G4ThreeVector &pos);
+	void SetPixel(G4int pix_x, G4int pix_y);
 
 	G4double GetEnergyDeposit() const;
 	G4ThreeVector GetPosition() const;
+	G4int GetPixelX() const;
+	G4int GetPixelY() const;
 
 private:
 	G4double EnergyDeposit { 0. };
 	G4ThreeVector Position;
+	G4int PixelX { 0 };
+	G4int PixelY { 0 };
 };
 
 using HitsCollection = G4THitsCollection<Hit>;
