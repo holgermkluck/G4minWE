@@ -29,24 +29,41 @@ G4minWE::ParallelWorld::ParallelWorld(G4String name) : G4VUserParallelWorld(name
 }
 
 void G4minWE::ParallelWorld::Construct(){
-    auto* world_logic = GetWorld()->GetLogicalVolume();
+    //Get a pointer to the physical world volume
+    auto* world_physic = GetWorld();
 
-    //Define one pixel: 50um x 50um, thickness 500um
+    //Dimensions of one pixel: 50um x 50um, thickness 500um
     G4double pix_x = 50.*um;
     G4double pix_y = pix_x;
     G4double pix_z = 500.*um;
-    auto* pixel_solid = new G4Box("pixel", pix_x/2., pix_y/2., pix_z/2);
-    auto* pixel_logic = new G4LogicalVolume(pixel_solid, nullptr, "pixel");
 
-    //Repeat pixel 160 times along x-axis
+    //Create an eveloping volume large enough to contain a matric of 160 x 160 pixel on the
+    //top side of the 1cm³ cube at (-10, -10, -10)cm
+    G4ThreeVector pos(-10.*cm, -10.*cm,
+        -10.*cm      //center of the 1cm³
+        + (1.*cm/2.) //upper surface of the 1cm³
+        - (pix_z/2.) //pixels surface should align with cube surface
+        );
+    //Repeat pixel 160 times along y-axis
     G4int rep_x = 160;
-    //Create an eveloping volume ... 
+    G4int rep_y = rep_x;
+    //Create an eveloping volume
+    auto* matrix_solid = new G4Box("matrix", (rep_x*pix_x)/2., (rep_y*pix_y)/2., pix_z/2.);
+    auto* matrix_logic = new G4LogicalVolume(
+        matrix_solid,
+        nullptr, //We are in a "parallel world", volumes need no material
+        "matrix");
+    new G4PVPlacement(nullptr, pos, "matrix", matrix_logic, world_physic, false, 0);
+
+    //Fill the matrix with "rows" along the y-axis    
     auto* row_solid = new G4Box("row", (rep_x*pix_x)/2., pix_y/2., pix_z/2.);
     auto* row_logic = new G4LogicalVolume(row_solid, nullptr, "row");
-    new G4PVPlacement(nullptr, G4ThreeVector(-10.*cm, -10.*cm, -10.*cm), "row", row_logic, GetWorld(), false, 0);
+    new G4PVReplica("row_rep", row_logic, matrix_logic, kYAxis, rep_y, pix_y);
 
-    // and fill it with pixels
-    new G4PVReplica("pix_repl", pixel_logic, row_logic, kXAxis, rep_x, pix_x);
+    //Fill the rows with pixels along the x-axis
+    auto* pixel_solid = new G4Box("pixel", pix_x/2., pix_y/2., pix_z/2);
+    auto* pixel_logic = new G4LogicalVolume(pixel_solid, nullptr, "pixel");
+    new G4PVReplica("pix_rep", pixel_logic, row_logic, kXAxis, rep_x, pix_x); 
 }
 
 void G4minWE::ParallelWorld::ConstructSD(){
