@@ -28,7 +28,7 @@
 /vis/verbose errors
 
 #Draw the geometry
-/vis/drawVolume
+/vis/drawVolume worlds
 
 #View on the scene from top
 /vis/viewer/set/viewpointVector -1 0 0
