@@ -17,3 +17,17 @@
  */
 
 #include "parallelWorld.hh"
+#include "G4VPhysicalVolume.hh"
+#include "G4LogicalVolume.hh"
+#include "G4PVPlacement.hh"
+
+G4minWE::ParallelWorld::ParallelWorld(G4String name) : G4VUserParallelWorld(name){    
+}
+
+void G4minWE::ParallelWorld::Construct(){
+    auto* world_logic = GetWorld()->GetLogicalVolume();
+}
+
+void G4minWE::ParallelWorld::ConstructSD(){
+
+}

@@ -15,3 +15,28 @@
  * You should have received a copy of the GNU General Public License
  * along with G4minWE. If not, see <http://www.gnu.org/licenses/>.
  */
+
+#ifndef INCLUDE_PARALLELWORD_HH_
+#define INCLUDE_PARALLELWORD_HH_
+
+#include "G4VUserParallelWorld.hh"
+#include "G4String.hh"
+
+namespace G4minWE {
+
+class ParallelWorld : public G4VUserParallelWorld {
+public:
+
+	//Let C++ define default constructor and destrcutor
+	ParallelWorld(G4String name);
+	~ParallelWorld() override = default;
+
+	//This method is needed; it will assemble the actual
+	//geometry of the parallel world
+	virtual void Construct() override;
+	//This method will create "sensitive detectors"
+	virtual void ConstructSD() override;
+};
+}
+
+#endif /* INCLUDE_PARALLELWORD_HH_ */
